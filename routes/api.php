@@ -12,6 +12,6 @@ $router->version('v1', function ($route) {
             $route->post('register', 'RegisterController@register');
             $route->post('login', 'LoginController@login')->name('login');
             $route->post('logout', 'LoginController@logout');
-        });        
+        });
     });
 });

@@ -19,7 +19,7 @@ class Controller extends BaseController
     /**
      * @OA\Info(
      *      version="1.0.0",
-     *      title="MebelShop documentation",
+     *      title="GlutenFree documentation",
      * )
      *
      * @OA\Server(

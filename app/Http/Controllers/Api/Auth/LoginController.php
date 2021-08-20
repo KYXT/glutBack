@@ -35,15 +35,28 @@ class LoginController extends Controller
      *     path="/login",
      *     operationId="login",
      *     tags={"Auth"},
-     *     summary="Авторизация",
+     *     summary="Authorization",
+     *     description="Authorization using email and password",
      *     @OA\RequestBody(
      *          required=true,
      *          @OA\JsonContent(ref="#/components/schemas/LoginRequest")
      *      ),
      *     @OA\Response(
+     *          response=401,
+     *          description="The provided password is incorrect",
+     *          @OA\JsonContent(example="The provided password is incorrect.")
+     *      ),
+     *     @OA\Response(
+     *          response=422,
+     *          description="The selected email is invalid",
+     *          @OA\JsonContent(example="The selected email is invalid.")
+     *      ),
+     *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent()
+     *          @OA\JsonContent(
+     *              @OA\Property(property="token", type="string", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTcyZmEyMzRjYTQ5ZWRjZTVjMzFkNGNhOTIxODZkOTNkNWI3NGIwNjc3MzhmMzUzNjc5Yzk4ZDJmMTI2OWI3ZmRhZDczOTA2YTY5ZjI0ZjAiLCJpYXQiOjE2Mjk0OTk0MjEuMTY2NTcxLCJuYmYiOjE2Mjk0OTk0MjEuMTY2NTc2LCJleHAiOjE2NjEwMzU0MjAuOTY4MjA4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.pPrBL_HssMxekBRELwYs_FO7Ovfbq0oVGpH1vX1OXDTHcKzIQeOpAiivB0q5oBjW4rwRB2fcut0Tsy7JNpE3Qde9ChycGvv6UyEQPBTqIASfSCNxf0349uUlF3V5C5MMzdSb0pvSX62ajFbb3wKtlzSK2MZ22MAiuWnU7WpuLZZXBSPseZFoltjEbtXqPjChT5hEFGB_c6eA7LANRNhFs4XjRHGjrGhAW3JMB4AMu6VjDwqfF3KZm5dYMmLiu095p4io1anBYIhiH4y8YWIdSi8dqUNaCpI7CGiG6a30u2ADluvG2M4v6me01AK_tbVTFNYjFw3XHQd1JRG0Xo8_hy5-Lg4c1kWwvkUM-NYojsj5dJQ7T3IF0bMumaPrcOZcyg9pV1XNpHBdb-SBHIqtU4SjqMhQGY5JLXGrq-xJFrC6s_7T-2xZXZ5NGXXqnobfb-FkvtBsDfCfFa_iLIjJ4BTgMl4d3hLyk07pIoqrTFooTfRtejnYPEdJAAohcxBHC3LViRsEgQkX0pzfcLtadMPTTagCbnYqIA0BZQJ0rOdC62fk2yR9t2zSm7_W06nURULfM4bqwYx-PeEOj-5mXGwJktuZvJdau1WewXcawEL8q4_kMtTH9zLphFI8l5Uuq7Bf9vnaHAGfyCRmL7JBSCNM58IqA0QhcSdP8_shx14")
+     *          )
      *      )
      * )
      *
@@ -75,11 +88,19 @@ class LoginController extends Controller
      *     path="/logout",
      *     operationId="logout",
      *     tags={"Auth"},
-     *     summary="Выход",
+     *     summary="Logout",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\Response(
+     *          response=500,
+     *          description="Active user session not founded",
+     *          @OA\JsonContent(example="Active user session not founded")
+     *      ),
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent()
+     *          @OA\JsonContent(example="Success logout")
      *      )
      * )
      *
@@ -89,7 +110,7 @@ class LoginController extends Controller
     public function logout(Request $request): JsonResponse
     {
         if (!$this->api_guard()->check()) {
-            return $this->error('Active user session not founded');
+            return $this->error(__('auth.logout-error'));
         }
 
         $request->user('api')->token()->revoke();
@@ -99,7 +120,9 @@ class LoginController extends Controller
         Session::flush();
         Session::regenerate();
 
-        return $this->success('Success logout');
+        return $this->success([
+            'message' => __('auth.logout')
+        ]);
     }
 
     /**
