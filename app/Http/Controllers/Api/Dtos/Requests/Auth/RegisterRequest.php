@@ -31,7 +31,7 @@ class RegisterRequest
      * @OA\Property(
      *      title="email",
      *      description="User's email",
-     *      example="admin@admin.com"
+     *      example="user@user.com"
      * )
      *
      * @var string
@@ -42,7 +42,7 @@ class RegisterRequest
      * @OA\Property(
      *      title="password",
      *      description="User's password",
-     *      example="adminadmin"
+     *      example="useruser"
      * )
      *
      * @var string

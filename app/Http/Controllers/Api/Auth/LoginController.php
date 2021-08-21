@@ -36,7 +36,7 @@ class LoginController extends Controller
      *     operationId="login",
      *     tags={"Auth"},
      *     summary="Authorization",
-     *     description="Authorization using email and password",
+     *     description="Authorization using email and password. <br><br> Test data:<br><br> <b>Admin</b><br>admin@admin.com<br>adminadmin<br><br> <b>Moderator</b><br>moder@moder.com<br>modermoder<br><br> <b>User</b><br>user@user.com<br>useruser<br><br>",
      *     @OA\RequestBody(
      *          required=true,
      *          @OA\JsonContent(ref="#/components/schemas/LoginRequest")
@@ -89,6 +89,7 @@ class LoginController extends Controller
      *     operationId="logout",
      *     tags={"Auth"},
      *     summary="Logout",
+     *     description="Logout",
      *     security={
      *          {"bearer": {}}
      *     },
