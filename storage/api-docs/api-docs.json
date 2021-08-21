@@ -1,0 +1,231 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "GlutenFree documentation",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Authorization",
+                "description": "Authorization using email and password. <br><br> Test data:<br><br> <b>Admin</b><br>admin@admin.com<br>adminadmin<br><br> <b>Moderator</b><br>moder@moder.com<br>modermoder<br><br> <b>User</b><br>user@user.com<br>useruser<br><br>",
+                "operationId": "login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "The provided password is incorrect",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "The provided password is incorrect."
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "The selected email is invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "The selected email is invalid."
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTcyZmEyMzRjYTQ5ZWRjZTVjMzFkNGNhOTIxODZkOTNkNWI3NGIwNjc3MzhmMzUzNjc5Yzk4ZDJmMTI2OWI3ZmRhZDczOTA2YTY5ZjI0ZjAiLCJpYXQiOjE2Mjk0OTk0MjEuMTY2NTcxLCJuYmYiOjE2Mjk0OTk0MjEuMTY2NTc2LCJleHAiOjE2NjEwMzU0MjAuOTY4MjA4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.pPrBL_HssMxekBRELwYs_FO7Ovfbq0oVGpH1vX1OXDTHcKzIQeOpAiivB0q5oBjW4rwRB2fcut0Tsy7JNpE3Qde9ChycGvv6UyEQPBTqIASfSCNxf0349uUlF3V5C5MMzdSb0pvSX62ajFbb3wKtlzSK2MZ22MAiuWnU7WpuLZZXBSPseZFoltjEbtXqPjChT5hEFGB_c6eA7LANRNhFs4XjRHGjrGhAW3JMB4AMu6VjDwqfF3KZm5dYMmLiu095p4io1anBYIhiH4y8YWIdSi8dqUNaCpI7CGiG6a30u2ADluvG2M4v6me01AK_tbVTFNYjFw3XHQd1JRG0Xo8_hy5-Lg4c1kWwvkUM-NYojsj5dJQ7T3IF0bMumaPrcOZcyg9pV1XNpHBdb-SBHIqtU4SjqMhQGY5JLXGrq-xJFrC6s_7T-2xZXZ5NGXXqnobfb-FkvtBsDfCfFa_iLIjJ4BTgMl4d3hLyk07pIoqrTFooTfRtejnYPEdJAAohcxBHC3LViRsEgQkX0pzfcLtadMPTTagCbnYqIA0BZQJ0rOdC62fk2yR9t2zSm7_W06nURULfM4bqwYx-PeEOj-5mXGwJktuZvJdau1WewXcawEL8q4_kMtTH9zLphFI8l5Uuq7Bf9vnaHAGfyCRmL7JBSCNM58IqA0QhcSdP8_shx14"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout",
+                "description": "Logout",
+                "operationId": "logout",
+                "responses": {
+                    "500": {
+                        "description": "Active user session not founded",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Active user session not founded"
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Success logout"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Registration",
+                "description": "Registration by email and password",
+                "operationId": "register",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "The given data was invalid",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "The given data was invalid"
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successful registration"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTcyZmEyMzRjYTQ5ZWRjZTVjMzFkNGNhOTIxODZkOTNkNWI3NGIwNjc3MzhmMzUzNjc5Yzk4ZDJmMTI2OWI3ZmRhZDczOTA2YTY5ZjI0ZjAiLCJpYXQiOjE2Mjk0OTk0MjEuMTY2NTcxLCJuYmYiOjE2Mjk0OTk0MjEuMTY2NTc2LCJleHAiOjE2NjEwMzU0MjAuOTY4MjA4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.pPrBL_HssMxekBRELwYs_FO7Ovfbq0oVGpH1vX1OXDTHcKzIQeOpAiivB0q5oBjW4rwRB2fcut0Tsy7JNpE3Qde9ChycGvv6UyEQPBTqIASfSCNxf0349uUlF3V5C5MMzdSb0pvSX62ajFbb3wKtlzSK2MZ22MAiuWnU7WpuLZZXBSPseZFoltjEbtXqPjChT5hEFGB_c6eA7LANRNhFs4XjRHGjrGhAW3JMB4AMu6VjDwqfF3KZm5dYMmLiu095p4io1anBYIhiH4y8YWIdSi8dqUNaCpI7CGiG6a30u2ADluvG2M4v6me01AK_tbVTFNYjFw3XHQd1JRG0Xo8_hy5-Lg4c1kWwvkUM-NYojsj5dJQ7T3IF0bMumaPrcOZcyg9pV1XNpHBdb-SBHIqtU4SjqMhQGY5JLXGrq-xJFrC6s_7T-2xZXZ5NGXXqnobfb-FkvtBsDfCfFa_iLIjJ4BTgMl4d3hLyk07pIoqrTFooTfRtejnYPEdJAAohcxBHC3LViRsEgQkX0pzfcLtadMPTTagCbnYqIA0BZQJ0rOdC62fk2yR9t2zSm7_W06nURULfM4bqwYx-PeEOj-5mXGwJktuZvJdau1WewXcawEL8q4_kMtTH9zLphFI8l5Uuq7Bf9vnaHAGfyCRmL7JBSCNM58IqA0QhcSdP8_shx14"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "LoginRequest": {
+                "title": "LoginRequest",
+                "description": "Class RegisterRequest",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "title": "email",
+                        "description": "Email",
+                        "type": "string",
+                        "example": "admin@admin.com"
+                    },
+                    "password": {
+                        "title": "passsword",
+                        "description": "Password",
+                        "type": "string",
+                        "example": "adminadmin"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterRequest": {
+                "title": "RegisterRequest",
+                "description": "Class RegisterRequest",
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "User's name",
+                        "type": "string",
+                        "example": "KYXT"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "User's email",
+                        "type": "string",
+                        "example": "user@user.com"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "User's password",
+                        "type": "string",
+                        "example": "useruser"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearer": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer \"token\")",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Projects",
+            "description": "API Endpoints of Projects"
+        }
+    ],
+    "security": [
+        []
+    ]
+}

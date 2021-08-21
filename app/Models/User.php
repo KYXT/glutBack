@@ -6,11 +6,30 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 
+/**
+ * Class User
+ * @package App\Models
+ * @property int $id
+ * @property string $email
+ * @property string $password
+ * @property int $role
+ * @property string $phone
+ * @property string $created_at
+ */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
+
+    /**
+     * @var array
+     */
+    public const ROLES = [
+        1   => 'Пользователь',
+        2   => 'Модератор',
+        3   => 'Администратор'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +40,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', // 1- user, 2- moderator, 3- admin
+        'phone'
     ];
 
     /**
@@ -41,4 +62,36 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return string
+     */
+    public function getRole(): string
+    {
+        return self::ROLES[$this->role];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUser(): bool
+    {
+        return $this->role == 1;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isModerator(): bool
+    {
+        return $this->role == 2;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role == 3;
+    }
 }

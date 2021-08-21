@@ -10,7 +10,10 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+        "dingo/api": "^3.0",
+        "laravel/passport": "^10.1",
+        "darkaonline/l5-swagger": "^8.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
