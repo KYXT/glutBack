@@ -13,5 +13,10 @@ $router->version('v1', function ($route) {
             $route->post('login', 'LoginController@login')->name('login');
             $route->post('logout', 'LoginController@logout');
         });
+
+        // User
+        $route->group(['namespace' => 'User'], function ($route) {
+            $route->get('user', 'UserController@user');
+        });
     });
 });
