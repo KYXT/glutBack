@@ -23,4 +23,15 @@ class UserController extends Controller
             'user' => Auth::guard('api')->user()
         ]);
     }
+
+    /**
+     * @return JsonResponse
+     */
+    public function allUsers(): JsonResponse
+    {
+        $users = User::all();
+        return $this->success([
+            'users' => $users
+        ]);
+    }
 }

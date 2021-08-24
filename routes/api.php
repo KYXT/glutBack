@@ -17,6 +17,7 @@ $router->version('v1', function ($route) {
         // User
         $route->group(['namespace' => 'User'], function ($route) {
             $route->get('user', 'UserController@user');
+            $route->get('all-users', 'UserController@allUsers');
         });
     });
 });
