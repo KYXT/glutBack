@@ -6,7 +6,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8000/api",
+            "url": "http://ru.glutback.com:8001/api",
             "description": "Demo API Server"
         }
     ],
@@ -152,6 +152,59 @@
                     }
                 }
             }
+        },
+        "/user": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get user",
+                "description": "Get user by Bearer token. If no token, return null.",
+                "operationId": "get-user",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserRequest"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/all": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get all users",
+                "description": "Get all users from system by Bearer token. Only for admins. Paginate by 10.",
+                "operationId": "get-all-users",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "List of users with pagination"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -205,6 +258,49 @@
                         "description": "User's password",
                         "type": "string",
                         "example": "useruser"
+                    }
+                },
+                "type": "object"
+            },
+            "UserRequest": {
+                "title": "UserRequest",
+                "description": "Class UserRequest",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "name",
+                        "type": "string",
+                        "example": "Peter"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "Email",
+                        "type": "string",
+                        "example": "admin@admin.com"
+                    },
+                    "email_verified_at": {
+                        "title": "email_verified_at",
+                        "description": "Time whe email was verified",
+                        "type": "string",
+                        "example": "2021-08-21T00:07:55.000000Z"
+                    },
+                    "role": {
+                        "title": "Role",
+                        "description": "User's role",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "description": "Time whe uese was created",
+                        "type": "string",
+                        "example": "2021-08-21T00:07:55.000000Z"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "description": "Time whe uese was updated",
+                        "type": "string",
+                        "example": "2021-08-21T00:07:55.000000Z"
                     }
                 },
                 "type": "object"

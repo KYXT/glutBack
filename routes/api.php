@@ -13,5 +13,20 @@ $router->version('v1', function ($route) {
             $route->post('login', 'LoginController@login')->name('login');
             $route->post('logout', 'LoginController@logout');
         });
+
+        //User
+        $route->group(['middleware' => 'auth:api'], function ($route) {
+            //Profile
+            $route->group(
+                [
+                'namespace' => 'User',
+                'prefix'    => 'user'
+                ],
+                function ($route) {
+                    $route->get('', 'ProfileController@user');
+                    $route->get('all', 'ProfileController@all');
+                }
+            );
+        });
     });
 });

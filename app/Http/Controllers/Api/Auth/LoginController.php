@@ -77,9 +77,12 @@ class LoginController extends Controller
         Auth::login($user);
 
         return $this->success([
-            'token' => $user->createToken('api')->accessToken
+            'token' => $user->createToken('api')->accessToken,
+            'user' => Auth::user()
         ]);
     }
+
+
 
     /**
      * Display a listing of the resource.
