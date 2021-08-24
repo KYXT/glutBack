@@ -14,11 +14,11 @@ class UserController extends Controller
      * Display a listing of the resource.
      *
      * @OA\Get(
-     *     path="/user/all",
+     *     path="/admin/users",
      *     operationId="get-all-users",
-     *     tags={"User"},
+     *     tags={"Admin"},
      *     summary="Get all users",
-     *     description="Get all users from system by Bearer token. Only for admins. Paginate by 10.",
+     *     description="Get all users from system by Bearer token. Only for admins. Paginate by 20.",
      *     security={
      *          {"bearer": {}}
      *     },
@@ -34,7 +34,7 @@ class UserController extends Controller
     public function all(): JsonResponse
     {
         $users = User::orderBy('name')
-            ->select('name','email', 'created_at')
+            ->select('id', 'name','email', 'created_at')
             ->paginate(20);
 
         return $this->success([

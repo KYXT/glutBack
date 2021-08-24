@@ -35,7 +35,14 @@ $router->version('v1', function ($route) {
                     'prefix'        => 'admin',
                 ],
                 function ($route) {
-                    $route->get('all', 'UserController@all');
+                    $route->group(
+                        [
+                            'prefix'        => 'users',
+                        ],
+                        function ($route) {
+                            $route->get('', 'UserController@all');
+                        }
+                    );
                 }
             );
         });
