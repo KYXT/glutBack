@@ -14,17 +14,28 @@ $router->version('v1', function ($route) {
             $route->post('logout', 'LoginController@logout');
         });
 
-        //User
+
         $route->group(['middleware' => 'auth:api'], function ($route) {
-            //Profile
+            //User
             $route->group(
                 [
-                'namespace' => 'User',
-                'prefix'    => 'user'
+                    'namespace' => 'User',
+                    'prefix'    => 'user'
                 ],
                 function ($route) {
                     $route->get('', 'ProfileController@user');
-                    $route->get('all', 'ProfileController@all');
+                }
+            );
+
+            //Admin
+            $route->group(
+                [
+                    'middleware'    => 'admin',
+                    'namespace'     => 'Admin',
+                    'prefix'        => 'admin',
+                ],
+                function ($route) {
+                    $route->get('all', 'UserController@all');
                 }
             );
         });
