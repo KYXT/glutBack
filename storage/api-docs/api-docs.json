@@ -6,7 +6,7 @@
     },
     "servers": [
         {
-            "url": "http://ru.glutback.com:8001/api",
+            "url": "http://localhost:8000/api",
             "description": "Demo API Server"
         }
     ],
@@ -159,7 +159,7 @@
                     "User"
                 ],
                 "summary": "Get user",
-                "description": "Get user by Bearer token. If no token, return null.",
+                "description": "Get user by Bearer token.",
                 "operationId": "get-user",
                 "responses": {
                     "200": {
