@@ -7,13 +7,13 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+class CreatorMiddleware
 {
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
-     * @param Closure $next
+     * @param  Request  $request
+     * @param  Closure  $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
@@ -23,7 +23,7 @@ class AdminMiddleware
                 ->first();
 
             if ($user) {
-                if ($user->isAdmin() || $user->isCreator()) {
+                if ($user->isCreator()) {
                     return $next($request);
                 }
             }
