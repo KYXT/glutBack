@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\CreatorMiddleware;
+use App\Http\Middleware\LanguageMiddleware;
 use App\Http\Middleware\ModeratorMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -69,5 +70,6 @@ class Kernel extends HttpKernel
         'admin'             => AdminMiddleware::class,
         'creator'           => CreatorMiddleware::class,
         'moderator'         => ModeratorMiddleware::class,
+        'language'          => LanguageMiddleware::class,
     ];
 }
