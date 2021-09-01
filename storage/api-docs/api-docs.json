@@ -11,6 +11,32 @@
         }
     ],
     "paths": {
+        "/admin/users": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get all users",
+                "description": "Get all users from system by Bearer token. Only for admins. Paginate by 20.",
+                "operationId": "get-all-users",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "List of users with pagination"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/login": {
             "post": {
                 "tags": [
@@ -169,32 +195,6 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/UserRequest"
                                 }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
-            }
-        },
-        "/user/all": {
-            "get": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "Get all users",
-                "description": "Get all users from system by Bearer token. Only for admins. Paginate by 10.",
-                "operationId": "get-all-users",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": "List of users with pagination"
                             }
                         }
                     }
