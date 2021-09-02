@@ -179,6 +179,90 @@
                 }
             }
         },
+        "/main-page": {
+            "get": {
+                "tags": [
+                    "Main page"
+                ],
+                "summary": "Main page",
+                "description": "Return posts with category, paginated by 10",
+                "operationId": "main-page",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "List of posts with category. Pagination by 10"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/posts": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Get all posts",
+                "description": "Return all posts with category, paginated by 10",
+                "operationId": "posts",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "List of posts with category. Pagination by 10"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/posts/{slug}": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Get post by slug",
+                "description": "Return post with category",
+                "operationId": "show post",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Posts slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "co-to-jest-gluten"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Post with category"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Item not founded",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Item not founded"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/user": {
             "get": {
                 "tags": [

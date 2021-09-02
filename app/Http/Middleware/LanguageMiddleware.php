@@ -26,9 +26,7 @@ class LanguageMiddleware
         if (in_array($locale, config('app.supported_locales'))) {
             App::setLocale($locale);
 
-            return $next($request)
-                ->headers
-                ->set('Content-Language', $locale);
+            return $next($request);
         }
 
         abort(403, 'Language not supported.');

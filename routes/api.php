@@ -19,6 +19,11 @@ $router->version('v1', function ($route) {
                 $route->post('logout', 'LoginController@logout');
             });
 
+            // Posts
+            $route->group(['prefix' => 'posts'], function ($route) {
+                $route->get('', 'PostController@index');
+                $route->get('{slug}', 'PostController@show');
+            });
 
             $route->group(['middleware' => 'auth:api'], function ($route) {
                 //User
