@@ -72,6 +72,7 @@ class PostController extends Controller
      *      ),
      * )
      *
+     * @param $slug
      * @return JsonResponse
      */
     public function show($slug): JsonResponse

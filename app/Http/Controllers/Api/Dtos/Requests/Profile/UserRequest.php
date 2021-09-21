@@ -40,7 +40,7 @@ class UserRequest
     /**
      * @OA\Property(
      *      title="email_verified_at",
-     *      description="Time whe email was verified",
+     *      description="Time when email was verified",
      *      example="2021-08-21T00:07:55.000000Z"
      * )
      *
@@ -62,7 +62,7 @@ class UserRequest
     /**
      * @OA\Property(
      *      title="created_at",
-     *      description="Time whe uese was created",
+     *      description="Time when uesr was created",
      *      example="2021-08-21T00:07:55.000000Z"
      * )
      *
@@ -73,7 +73,7 @@ class UserRequest
     /**
      * @OA\Property(
      *      title="updated_at",
-     *      description="Time whe uese was updated",
+     *      description="Time when user was updated",
      *      example="2021-08-21T00:07:55.000000Z"
      * )
      *

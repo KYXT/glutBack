@@ -43,22 +43,6 @@ class Uploader
     }
 
     /**
-     * @param $path
-     */
-    public static function compress($path)
-    {
-        $image = Image::make($path);
-        $canvas = Image::canvas(1280, 720);
-
-        $image->resize(1280, 720, function ($constraint) {
-            $constraint->aspectRatio();
-        });
-
-        $canvas->insert($image, 'center');
-        $canvas->save($path);
-    }
-
-    /**
      * @param string $path
      */
     public static function deleteAttachment(string $path)

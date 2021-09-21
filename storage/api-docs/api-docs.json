@@ -11,6 +11,124 @@
         }
     ],
     "paths": {
+        "/admin/posts/update/{slug}": {
+            "post": {
+                "tags": [
+                    "Admin-Posts"
+                ],
+                "summary": "Update post",
+                "description": "Display a listing of the resource.",
+                "operationId": "update-post",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Posts slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "co-to-jest-gluten"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdatePostRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "The provided slug is incorrect",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Item not founded"
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully updated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin/posts/delete/{slug}": {
+            "post": {
+                "tags": [
+                    "Admin-Posts"
+                ],
+                "summary": "Delete post by slug",
+                "description": "Delete post",
+                "operationId": "delete post",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Posts slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "co-to-jest-gluten"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Item not founded",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Item not founded"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/admin/users": {
             "get": {
                 "tags": [
@@ -293,6 +411,67 @@
     },
     "components": {
         "schemas": {
+            "UpdatePostRequest": {
+                "title": "UpdatePostRequest",
+                "description": "Class UpdatePostRequest",
+                "properties": {
+                    "category_id": {
+                        "title": "category_id",
+                        "description": "integer",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "lang": {
+                        "title": "lang",
+                        "description": "language",
+                        "type": "string",
+                        "example": "pl"
+                    },
+                    "title": {
+                        "title": "title",
+                        "description": "title",
+                        "type": "string",
+                        "example": "post post"
+                    },
+                    "h1": {
+                        "title": "h1",
+                        "description": "h1",
+                        "type": "string",
+                        "example": "post post"
+                    },
+                    "content": {
+                        "title": "content",
+                        "description": "content",
+                        "type": "string",
+                        "example": "this is my content"
+                    },
+                    "image": {
+                        "title": "image",
+                        "description": "image",
+                        "type": "string",
+                        "example": "Image file"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "description",
+                        "type": "string",
+                        "example": "this is my description"
+                    },
+                    "keywords": {
+                        "title": "keywords",
+                        "description": "keywords",
+                        "type": "string",
+                        "example": "test, foo, baz"
+                    },
+                    "is_on_main": {
+                        "title": "is_on_main",
+                        "description": "is_on_main",
+                        "type": "boolean",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            },
             "LoginRequest": {
                 "title": "LoginRequest",
                 "description": "Class RegisterRequest",
@@ -364,7 +543,7 @@
                     },
                     "email_verified_at": {
                         "title": "email_verified_at",
-                        "description": "Time whe email was verified",
+                        "description": "Time when email was verified",
                         "type": "string",
                         "example": "2021-08-21T00:07:55.000000Z"
                     },
@@ -376,13 +555,13 @@
                     },
                     "created_at": {
                         "title": "created_at",
-                        "description": "Time whe uese was created",
+                        "description": "Time when uesr was created",
                         "type": "string",
                         "example": "2021-08-21T00:07:55.000000Z"
                     },
                     "updated_at": {
                         "title": "updated_at",
-                        "description": "Time whe uese was updated",
+                        "description": "Time when user was updated",
                         "type": "string",
                         "example": "2021-08-21T00:07:55.000000Z"
                     }
