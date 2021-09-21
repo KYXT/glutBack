@@ -53,6 +53,14 @@ $router->version('v1', function ($route) {
                                 $route->get('', 'UserController@all');
                             }
                         );
+                        $route->group(
+                            [
+                                'prefix' => 'posts',
+                            ],
+                            function ($route) {
+                                $route->get('delete/{slug}', 'PostController@delete');
+                            }
+                        );
                     }
                 );
             });
