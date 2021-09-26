@@ -32,11 +32,12 @@ class UpdatePostRequest extends FormRequest
         return [
             'category_id'   => 'required|exists:post_categories,id',
             'lang'          => 'required|string|in:' . $langStr,
-            'h1'            => 'required|string|max:255',
-            'content'       => 'required|string|max:10000',
+            'title'         => 'required|string|min:10|max:255',
+            'h1'            => 'required|string|min:10|max:255',
+            'content'       => 'required|string|min:10|max:10000',
             'image'         => 'nullable|image|mimes:jpeg,bmp,png,jpg',
-            'description'   => 'nullable|string|max:1000',
-            'keywords'      => 'nullable|string|max:1000',
+            'description'   => 'nullable|string|min:10|max:1000',
+            'keywords'      => 'nullable|string|min:10|max:1000',
             'is_on_main'    => 'required|boolean',
         ];
     }
