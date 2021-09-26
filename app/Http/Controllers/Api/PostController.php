@@ -77,11 +77,8 @@ class PostController extends Controller
      */
     public function show($slug): JsonResponse
     {
-        $lang = App::getLocale();
-
         $post = Post::where([
             ['slug', $slug],
-            ['lang', $lang],
         ])
             ->with('category')
             ->first();
