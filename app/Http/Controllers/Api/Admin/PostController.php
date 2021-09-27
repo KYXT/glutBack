@@ -4,12 +4,69 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Uploader;
+use App\Http\Requests\Api\Admin\Posts\StorePostRequest;
 use App\Http\Requests\Api\Admin\Posts\UpdatePostRequest;
 use App\Models\Post;
+use App\Models\PostCategory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @OA\Post(
+     *     path="/admin/posts/store",
+     *     operationId="store-post",
+     *     tags={"Admin-Posts"},
+     *     summary="Create post",
+     *     description="!!! use form-data for api !!!",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/StorePostRequest")
+     *      ),
+     *     @OA\Response(
+     *          response=500,
+     *          description="Posts category language dont match with language of the post",
+     *          @OA\JsonContent(example="Posts category language dont match with language of the post")
+     *      ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Successfully created")
+     *          )
+     *      )
+     * )
+     *
+     * @param StorePostRequest $request
+     * @return JsonResponse
+     */
+    public function store(StorePostRequest $request)
+    {
+        $data = $request->validated();
+
+        $error = $this->validateLanguage($data['category_id'], $data['lang']);
+
+        if ($error) {
+            return $error;
+        }
+
+        $data['slug'] = Str::slug($data['title']);
+        $data['image'] = Uploader::upload('posts/images', $data['image']);
+
+        $post = Post::create($data);
+
+        return $this->success([
+            'message' => __('success.create'),
+            'post' => $post
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,6 +75,7 @@ class PostController extends Controller
      *     operationId="update-post",
      *     tags={"Admin-Posts"},
      *     summary="Update post",
+     *     description="!!! use form-data for api !!!",
      *     security={
      *          {"bearer": {}}
      *     },
@@ -60,12 +118,18 @@ class PostController extends Controller
             ->first();
 
         if (!$post) {
-            return $this->error(__('errors.not-founded'), 500);
+            return $this->error(__('errors.not-founded'));
         }
 
         $request->validate([
             'title' => 'required|string|max:255|unique:posts,title,' . $post->id,
         ]);
+
+        $error = $this->validateLanguage($data['category_id'], $data['lang']);
+
+        if ($error) {
+            return $error;
+        }
 
         if (isset($data['image'])) {
             Uploader::deleteAttachment($post->image);
@@ -76,7 +140,7 @@ class PostController extends Controller
 
         return $this->success([
             'message' => __('success.update'),
-            'post'    => $post
+            'post' => $post
         ]);
     }
 
@@ -134,5 +198,22 @@ class PostController extends Controller
         return $this->success([
             'message' => __('success.delete')
         ]);
+    }
+
+    /**
+     * @param $categoryId
+     * @param $postLang
+     * @return JsonResponse|null
+     */
+    private function validateLanguage($categoryId, $postLang)
+    {
+        $postCategory = PostCategory::where('id', $categoryId)
+            ->first();
+
+        if ($postCategory->lang != $postLang) {
+            return $this->error(__('posts.language-update-error'));
+        }
+
+        return null;
     }
 }
