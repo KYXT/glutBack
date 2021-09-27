@@ -58,6 +58,7 @@ $router->version('v1', function ($route) {
                                 'prefix' => 'posts',
                             ],
                             function ($route) {
+                                $route->post('store',  'PostController@store');
                                 $route->post('update/{slug}', 'PostController@update');
                                 $route->post('delete/{slug}', 'PostController@delete');
                             }

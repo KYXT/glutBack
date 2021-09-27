@@ -11,13 +11,65 @@
         }
     ],
     "paths": {
+        "/admin/posts/store": {
+            "post": {
+                "tags": [
+                    "Admin-Posts"
+                ],
+                "summary": "Create post",
+                "description": "!!! use form-data for api !!!",
+                "operationId": "store-post",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StorePostRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "Posts category language dont match with language of the post",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Posts category language dont match with language of the post"
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/admin/posts/update/{slug}": {
             "post": {
                 "tags": [
                     "Admin-Posts"
                 ],
                 "summary": "Update post",
-                "description": "Display a listing of the resource.",
+                "description": "!!! use form-data for api !!!",
                 "operationId": "update-post",
                 "parameters": [
                     {
@@ -411,6 +463,67 @@
     },
     "components": {
         "schemas": {
+            "StorePostRequest": {
+                "title": "StorePostRequest",
+                "description": "Class StorePostRequest",
+                "properties": {
+                    "category_id": {
+                        "title": "category_id",
+                        "description": "integer",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "lang": {
+                        "title": "lang",
+                        "description": "language",
+                        "type": "string",
+                        "example": "pl"
+                    },
+                    "title": {
+                        "title": "title",
+                        "description": "title",
+                        "type": "string",
+                        "example": "post post post"
+                    },
+                    "h1": {
+                        "title": "h1",
+                        "description": "h1",
+                        "type": "string",
+                        "example": "post post post"
+                    },
+                    "content": {
+                        "title": "content",
+                        "description": "content",
+                        "type": "string",
+                        "example": "this is my content wow"
+                    },
+                    "image": {
+                        "title": "image",
+                        "description": "image",
+                        "type": "string",
+                        "example": "Image file"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "description",
+                        "type": "string",
+                        "example": "this is my description"
+                    },
+                    "keywords": {
+                        "title": "keywords",
+                        "description": "keywords",
+                        "type": "string",
+                        "example": "test, foo, baz"
+                    },
+                    "is_on_main": {
+                        "title": "is_on_main",
+                        "description": "is_on_main",
+                        "type": "boolean",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            },
             "UpdatePostRequest": {
                 "title": "UpdatePostRequest",
                 "description": "Class UpdatePostRequest",
