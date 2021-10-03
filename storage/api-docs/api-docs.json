@@ -11,6 +11,158 @@
         }
     ],
     "paths": {
+        "/admin/post-categories/store": {
+            "post": {
+                "tags": [
+                    "Admin-Categories-Posts"
+                ],
+                "summary": "Create posts category",
+                "description": "Store posts category",
+                "operationId": "store-post-category",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StorePostCategoryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin/post-categories/update/{slug}": {
+            "post": {
+                "tags": [
+                    "Admin-Categories-Posts"
+                ],
+                "summary": "Update posts category",
+                "description": "Display a listing of the resource.",
+                "operationId": "update-post",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Posts category slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "aktualnosci"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StorePostCategoryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully updated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin/post-categories/delete/{slug}": {
+            "post": {
+                "tags": [
+                    "Admin-Categories-Posts"
+                ],
+                "summary": "Delete posts categories by slug",
+                "description": "Delete posts category",
+                "operationId": "delete-posts-category",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Posts category slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "aktualnosci"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Item not founded",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Item not founded"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/admin/posts/store": {
             "post": {
                 "tags": [
@@ -370,13 +522,76 @@
                 }
             }
         },
+        "/post-categories": {
+            "get": {
+                "tags": [
+                    "Post categories"
+                ],
+                "summary": "Get all posts categories",
+                "description": "Return all posts categories",
+                "operationId": "post-categories",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "List of posts with category."
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/post-categories/{slug}": {
+            "get": {
+                "tags": [
+                    "Post categories"
+                ],
+                "summary": "Get posts category by slug",
+                "description": "Return posts category with posts paginated by 12",
+                "operationId": "show posts category",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Posts category slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "aktualnosci"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Posts category with posts"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Item not founded",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Item not founded"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/posts": {
             "get": {
                 "tags": [
                     "Posts"
                 ],
                 "summary": "Get all posts",
-                "description": "Return all posts with category, paginated by 10",
+                "description": "Return all posts with category, paginated by 12",
                 "operationId": "posts",
                 "responses": {
                     "200": {
@@ -384,7 +599,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {},
-                                "example": "List of posts with category. Pagination by 10"
+                                "example": "List of posts with category. Pagination by 12"
                             }
                         }
                     }
@@ -463,19 +678,43 @@
     },
     "components": {
         "schemas": {
+            "StorePostCategoryRequest": {
+                "title": "StorePostCategoryRequest",
+                "description": "Class StorePostCategoryRequest",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of posts category",
+                        "type": "string",
+                        "example": "Aktualności"
+                    }
+                },
+                "type": "object"
+            },
             "StorePostRequest": {
                 "title": "StorePostRequest",
                 "description": "Class StorePostRequest",
+                "required": [
+                    "category_id",
+                    "lang",
+                    "title",
+                    "h1",
+                    "content",
+                    "image"
+                ],
                 "properties": {
                     "category_id": {
                         "title": "category_id",
-                        "description": "integer",
+                        "description": "Posts category ID",
                         "type": "integer",
                         "example": "1"
                     },
                     "lang": {
                         "title": "lang",
-                        "description": "language",
+                        "description": "language of post",
                         "type": "string",
                         "example": "pl"
                     },
@@ -483,18 +722,24 @@
                         "title": "title",
                         "description": "title",
                         "type": "string",
+                        "maxLength": 255,
+                        "minLength": 10,
                         "example": "post post post"
                     },
                     "h1": {
                         "title": "h1",
                         "description": "h1",
                         "type": "string",
+                        "maxLength": 255,
+                        "minLength": 10,
                         "example": "post post post"
                     },
                     "content": {
                         "title": "content",
                         "description": "content",
                         "type": "string",
+                        "maxLength": 10000,
+                        "minLength": 10,
                         "example": "this is my content wow"
                     },
                     "image": {
@@ -507,12 +752,16 @@
                         "title": "description",
                         "description": "description",
                         "type": "string",
+                        "maxLength": 1000,
+                        "minLength": 10,
                         "example": "this is my description"
                     },
                     "keywords": {
                         "title": "keywords",
                         "description": "keywords",
                         "type": "string",
+                        "maxLength": 1000,
+                        "minLength": 10,
                         "example": "test, foo, baz"
                     },
                     "is_on_main": {
@@ -527,6 +776,14 @@
             "UpdatePostRequest": {
                 "title": "UpdatePostRequest",
                 "description": "Class UpdatePostRequest",
+                "required": [
+                    "category_id",
+                    "lang",
+                    "title",
+                    "h1",
+                    "content",
+                    "is_on_main"
+                ],
                 "properties": {
                     "category_id": {
                         "title": "category_id",
@@ -544,18 +801,24 @@
                         "title": "title",
                         "description": "title",
                         "type": "string",
+                        "maxLength": 255,
+                        "minLength": 10,
                         "example": "post post"
                     },
                     "h1": {
                         "title": "h1",
                         "description": "h1",
                         "type": "string",
+                        "maxLength": 255,
+                        "minLength": 10,
                         "example": "post post"
                     },
                     "content": {
                         "title": "content",
                         "description": "content",
                         "type": "string",
+                        "maxLength": 10000,
+                        "minLength": 10,
                         "example": "this is my content"
                     },
                     "image": {
@@ -568,12 +831,16 @@
                         "title": "description",
                         "description": "description",
                         "type": "string",
+                        "maxLength": 1000,
+                        "minLength": 10,
                         "example": "this is my description"
                     },
                     "keywords": {
                         "title": "keywords",
                         "description": "keywords",
                         "type": "string",
+                        "maxLength": 1000,
+                        "minLength": 10,
                         "example": "test, foo, baz"
                     },
                     "is_on_main": {
@@ -597,12 +864,16 @@
                         "title": "email",
                         "description": "Email",
                         "type": "string",
+                        "maxLength": 255,
+                        "minLength": 5,
                         "example": "admin@admin.com"
                     },
                     "password": {
                         "title": "passsword",
                         "description": "Password",
                         "type": "string",
+                        "maxLength": 255,
+                        "minLength": 8,
                         "example": "adminadmin"
                     }
                 },
@@ -621,18 +892,24 @@
                         "title": "name",
                         "description": "User's name",
                         "type": "string",
+                        "maxLength": 255,
+                        "minLength": 3,
                         "example": "KYXT"
                     },
                     "email": {
                         "title": "email",
                         "description": "User's email",
                         "type": "string",
+                        "maxLength": 255,
+                        "minLength": 5,
                         "example": "user@user.com"
                     },
                     "password": {
                         "title": "password",
                         "description": "User's password",
                         "type": "string",
+                        "maxLength": 255,
+                        "minLength": 8,
                         "example": "useruser"
                     }
                 },

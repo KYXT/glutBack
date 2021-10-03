@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -33,8 +31,7 @@ class UserController extends Controller
      */
     public function all(): JsonResponse
     {
-        $users = User::orderBy('name')
-            ->select('id', 'name','email', 'created_at')
+        $users = User::orderBy('created_at')
             ->paginate(20);
 
         return $this->success([

@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Api\Dtos\Requests\Admin\Posts;
  * @OA\Schema(
  *      title="UpdatePostRequest",
  *      type="object",
+ *      required={"category_id", "lang", "title", "h1", "content", "is_on_main"}
  * )
  */
 class UpdatePostRequest
@@ -41,7 +42,9 @@ class UpdatePostRequest
      * @OA\Property(
      *      title="title",
      *      description="title",
-     *      example="post post"
+     *      example="post post",
+     *      minLength=10,
+     *      maxLength=255,
      * )
      *
      * @var string
@@ -52,7 +55,9 @@ class UpdatePostRequest
      * @OA\Property(
      *      title="h1",
      *      description="h1",
-     *      example="post post"
+     *      example="post post",
+     *      minLength=10,
+     *      maxLength=255,
      * )
      *
      * @var string
@@ -63,7 +68,9 @@ class UpdatePostRequest
      * @OA\Property(
      *      title="content",
      *      description="content",
-     *      example="this is my content"
+     *      example="this is my content",
+     *      minLength=10,
+     *      maxLength=10000,
      * )
      *
      * @var string
@@ -74,7 +81,7 @@ class UpdatePostRequest
      * @OA\Property(
      *      title="image",
      *      description="image",
-     *      example="Image file"
+     *      example="Image file",
      * )
      *
      * @var string
@@ -85,7 +92,9 @@ class UpdatePostRequest
      * @OA\Property(
      *      title="description",
      *      description="description",
-     *      example="this is my description"
+     *      example="this is my description",
+     *      minLength=10,
+     *      maxLength=1000,
      * )
      *
      * @var string
@@ -96,7 +105,9 @@ class UpdatePostRequest
      * @OA\Property(
      *      title="keywords",
      *      description="keywords",
-     *      example="test, foo, baz"
+     *      example="test, foo, baz",
+     *      minLength=10,
+     *      maxLength=1000,
      * )
      *
      * @var string

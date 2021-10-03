@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Api\Dtos\Requests\Admin\Posts;
  * @OA\Schema(
  *      title="StorePostRequest",
  *      type="object",
+ *      required={"category_id", "lang", "title", "h1", "content", "image"}
  * )
  */
 class StorePostRequest
@@ -18,7 +19,7 @@ class StorePostRequest
     /**
      * @OA\Property(
      *      title="category_id",
-     *      description="integer",
+     *      description="Posts category ID",
      *      example="1"
      * )
      *
@@ -29,7 +30,7 @@ class StorePostRequest
     /**
      * @OA\Property(
      *      title="lang",
-     *      description="language",
+     *      description="language of post",
      *      example="pl"
      * )
      *
@@ -41,7 +42,9 @@ class StorePostRequest
      * @OA\Property(
      *      title="title",
      *      description="title",
-     *      example="post post post"
+     *      example="post post post",
+     *      minLength=10,
+     *      maxLength=255,
      * )
      *
      * @var string
@@ -52,7 +55,9 @@ class StorePostRequest
      * @OA\Property(
      *      title="h1",
      *      description="h1",
-     *      example="post post post"
+     *      example="post post post",
+     *      minLength=10,
+     *      maxLength=255,
      * )
      *
      * @var string
@@ -63,7 +68,9 @@ class StorePostRequest
      * @OA\Property(
      *      title="content",
      *      description="content",
-     *      example="this is my content wow"
+     *      example="this is my content wow",
+     *      minLength=10,
+     *      maxLength=10000,
      * )
      *
      * @var string
@@ -85,7 +92,9 @@ class StorePostRequest
      * @OA\Property(
      *      title="description",
      *      description="description",
-     *      example="this is my description"
+     *      example="this is my description",
+     *      minLength=10,
+     *      maxLength=1000,
      * )
      *
      * @var string
@@ -96,7 +105,9 @@ class StorePostRequest
      * @OA\Property(
      *      title="keywords",
      *      description="keywords",
-     *      example="test, foo, baz"
+     *      example="test, foo, baz",
+     *      minLength=10,
+     *      maxLength=1000,
      * )
      *
      * @var string

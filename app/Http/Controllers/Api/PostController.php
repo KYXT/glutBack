@@ -17,11 +17,11 @@ class PostController extends Controller
      *     operationId="posts",
      *     tags={"Posts"},
      *     summary="Get all posts",
-     *     description="Return all posts with category, paginated by 10",
+     *     description="Return all posts with category, paginated by 12",
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(example="List of posts with category. Pagination by 10")
+     *          @OA\JsonContent(example="List of posts with category. Pagination by 12")
      *      )
      * )
      *
@@ -34,7 +34,7 @@ class PostController extends Controller
         $posts = Post::where('lang', $lang)
             ->with('category')
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(12);
 
         return $this->success([
             'posts'  => $posts
