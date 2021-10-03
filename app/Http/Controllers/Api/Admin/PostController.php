@@ -108,6 +108,7 @@ class PostController extends Controller
      * )
      *
      * @param UpdatePostRequest $request
+     * @param $slug
      * @return JsonResponse
      */
     public function update(UpdatePostRequest $request, $slug)

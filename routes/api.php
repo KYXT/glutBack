@@ -25,6 +25,12 @@ $router->version('v1', function ($route) {
                 $route->get('{slug}', 'PostController@show');
             });
 
+            // Post-Categories
+            $route->group(['prefix' => 'post-categories'], function ($route) {
+                $route->get('', 'PostCategoryController@index');
+                $route->get('{slug}', 'PostCategoryController@show');
+            });
+
             $route->group(['middleware' => 'auth:api'], function ($route) {
                 //User
                 $route->group(
@@ -61,6 +67,17 @@ $router->version('v1', function ($route) {
                                 $route->post('store',  'PostController@store');
                                 $route->post('update/{slug}', 'PostController@update');
                                 $route->post('delete/{slug}', 'PostController@delete');
+                            }
+                        );
+                        // Post-Categories
+                        $route->group(
+                            [
+                                'prefix' => 'post-categories'
+                            ],
+                            function ($route) {
+                                $route->post('store', 'PostCategoryController@store');
+                                $route->post('update/{slug}', 'PostCategoryController@update');
+                                $route->post('delete/{slug}', 'PostCategoryController@delete');
                             }
                         );
                     }

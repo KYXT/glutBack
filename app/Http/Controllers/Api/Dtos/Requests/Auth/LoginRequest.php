@@ -20,7 +20,9 @@ class LoginRequest
      * @OA\Property(
      *      title="email",
      *      description="Email",
-     *      example="admin@admin.com"
+     *      example="admin@admin.com",
+     *      minLength=5,
+     *      maxLength=255,
      * )
      *
      * @var string
@@ -31,7 +33,9 @@ class LoginRequest
      * @OA\Property(
      *      title="passsword",
      *      description="Password",
-     *      example="adminadmin"
+     *      example="adminadmin",
+     *      minLength=8,
+     *      maxLength=255,
      * )
      *
      * @var string
