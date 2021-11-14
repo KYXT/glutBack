@@ -80,6 +80,18 @@ $router->version('v1', function ($route) {
                                 $route->post('delete/{slug}', 'PostCategoryController@delete');
                             }
                         );
+
+                        // Product-Categories
+                        $route->group(
+                            [
+                                'prefix' => 'product-categories'
+                            ],
+                            function ($route) {
+                                $route->post('store', 'ProductCategoryController@store');
+                                $route->post('update/{slug}', 'ProductCategoryController@update');
+                                $route->post('delete/{slug}', 'ProductCategoryController@delete');
+                            }
+                        );
                     }
                 );
             });
