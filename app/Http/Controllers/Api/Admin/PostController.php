@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Uploader;
+use App\Http\Helpers\UrlGeneratorHelper;
 use App\Http\Requests\Api\Admin\Posts\StorePostRequest;
 use App\Http\Requests\Api\Admin\Posts\UpdatePostRequest;
 use App\Models\Post;
@@ -56,8 +57,8 @@ class PostController extends Controller
             return $error;
         }
 
-        $data['slug'] = Str::slug($data['title']);
-        $data['image'] = Uploader::upload('posts/images', $data['image']);
+        $data['slug'] = UrlGeneratorHelper::postUrl($data['title'], Post::class);
+        $data['image'] = Uploader::upload('images/posts', $data['image']);
 
         $post = Post::create($data);
 

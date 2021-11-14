@@ -333,6 +333,256 @@
                 ]
             }
         },
+        "/admin/product-categories/store": {
+            "post": {
+                "tags": [
+                    "Admin-Categories-Products"
+                ],
+                "summary": "Create products category",
+                "description": "Use form-data request",
+                "operationId": "store-product-category",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreProductCategoryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin/product-categories/update/{slug}": {
+            "post": {
+                "tags": [
+                    "Admin-Categories-Products"
+                ],
+                "summary": "Update products category",
+                "description": "Use form-data request",
+                "operationId": "update-product-category",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Products-category slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "produkty-mleczne"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateProductCategoryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin/product-categories/delete/{slug}": {
+            "post": {
+                "tags": [
+                    "Admin-Categories-Products"
+                ],
+                "summary": "Delete products category by slug",
+                "description": "Delete products category",
+                "operationId": "delete-product-category",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Products category slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "produkty-mleczne"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Item not founded",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Item not founded"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin/product-subcategories/store": {
+            "post": {
+                "tags": [
+                    "Admin-Subcategories-Products"
+                ],
+                "summary": "Create products subcategory",
+                "description": "",
+                "operationId": "store-product-subcategory",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreProductSubcategoryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin/product-subcategories/update/{slug}": {
+            "post": {
+                "tags": [
+                    "Admin-Subcategories-Products"
+                ],
+                "summary": "Update products subcategory",
+                "description": "",
+                "operationId": "update-product-subcategory",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Products-subcategory slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "jogurt"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateProductSubcategoryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/admin/users": {
             "get": {
                 "tags": [
@@ -648,6 +898,69 @@
                 }
             }
         },
+        "/product-categories": {
+            "get": {
+                "tags": [
+                    "Product categories"
+                ],
+                "summary": "Get all products categories",
+                "description": "Return all products categories",
+                "operationId": "product-categories",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "List of products categories."
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product-categories/{slug}": {
+            "get": {
+                "tags": [
+                    "Product categories"
+                ],
+                "summary": "Get products categories by slug",
+                "description": "",
+                "operationId": "show products category",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Product category slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "mleczne-produkty"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Products category with subcategories"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Item not founded",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Item not founded"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/user": {
             "get": {
                 "tags": [
@@ -678,22 +991,6 @@
     },
     "components": {
         "schemas": {
-            "StorePostCategoryRequest": {
-                "title": "StorePostCategoryRequest",
-                "description": "Class StorePostCategoryRequest",
-                "required": [
-                    "name"
-                ],
-                "properties": {
-                    "name": {
-                        "title": "name",
-                        "description": "Name of posts category",
-                        "type": "string",
-                        "example": "Aktualności"
-                    }
-                },
-                "type": "object"
-            },
             "StorePostRequest": {
                 "title": "StorePostRequest",
                 "description": "Class StorePostRequest",
@@ -848,6 +1145,120 @@
                         "description": "is_on_main",
                         "type": "boolean",
                         "example": "1"
+                    }
+                },
+                "type": "object"
+            },
+            "StorePostCategoryRequest": {
+                "title": "StorePostCategoryRequest",
+                "description": "Class StorePostCategoryRequest",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of posts category",
+                        "type": "string",
+                        "example": "Aktualności"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreProductCategoryRequest": {
+                "title": "StoreProductCategoryRequest",
+                "description": "Class StoreProductCategoryRequest",
+                "required": [
+                    "name",
+                    "image"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of products category",
+                        "type": "string",
+                        "maxLength": 180,
+                        "minLength": 2,
+                        "example": "Produkty mleczne"
+                    },
+                    "image": {
+                        "title": "image",
+                        "description": "image",
+                        "type": "string",
+                        "example": "Image file"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateProductCategoryRequest": {
+                "title": "UpdateProductCategoryRequest",
+                "description": "Class UpdateProductCategoryRequest",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of products category",
+                        "type": "string",
+                        "maxLength": 180,
+                        "minLength": 2,
+                        "example": "Produkty mleczne"
+                    },
+                    "image": {
+                        "title": "image",
+                        "description": "image",
+                        "type": "string",
+                        "example": "Image file"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreProductSubcategoryRequest": {
+                "title": "StoreProductSubcategoryRequest",
+                "description": "Class StoreProductSubcategoryRequest",
+                "required": [
+                    "category_id",
+                    "name"
+                ],
+                "properties": {
+                    "category_id": {
+                        "title": "category_id",
+                        "description": "Id of products category",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "Name of products subcategory",
+                        "type": "string",
+                        "maxLength": 180,
+                        "minLength": 2,
+                        "example": "Jogurt"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateProductSubcategoryRequest": {
+                "title": "UpdateProductSubcategoryRequest",
+                "description": "Class UpdateProductSubcategoryRequest",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "category_id": {
+                        "title": "category_id",
+                        "description": "Id of products category",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "Name of products subcategory",
+                        "type": "string",
+                        "maxLength": 180,
+                        "minLength": 2,
+                        "example": "Jogurt"
                     }
                 },
                 "type": "object"

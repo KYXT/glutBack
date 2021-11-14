@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Helpers\UrlGeneratorHelper;
 use App\Http\Requests\Api\Admin\PostCategories\StorePostCategoryRequest;
 use App\Http\Requests\Api\Admin\PostCategories\UpdatePostCategoryRequest;
 use App\Models\PostCategory;
@@ -44,7 +45,7 @@ class PostCategoryController extends Controller
         $lang = App::getLocale();
 
         $data = $request->validated();
-        $data['slug'] = Str::slug($data['name']);
+        $data['slug'] = UrlGeneratorHelper::postUrl($data['name'], PostCategory::class);
         $data['lang'] = $lang;
 
         $postCategory = PostCategory::create($data);
@@ -113,7 +114,10 @@ class PostCategoryController extends Controller
             'name' => 'unique:post_categories,name,' . $postCategory->id
         ]);
 
-        $postCategory['slug'] = Str::slug($data['name']);
+        if ($data['name'] != $postCategory->name) {
+            $data['slug'] = UrlGeneratorHelper::postUrl($data['name'], PostCategory::class);
+        }
+
         $postCategory->update($data);
 
         return $this->success([
