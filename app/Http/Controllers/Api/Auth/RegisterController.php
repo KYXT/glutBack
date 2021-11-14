@@ -59,7 +59,8 @@ class RegisterController extends Controller
 
         return $this->success([
             'message' => __('auth.registration'),
-            'token' => $user->createToken('api')->accessToken
+            'token' => $user->createToken('api')->accessToken,
+            'user' => $user
         ]);
     }
 }

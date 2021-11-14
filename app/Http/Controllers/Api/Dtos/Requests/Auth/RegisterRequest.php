@@ -20,7 +20,9 @@ class RegisterRequest
      * @OA\Property(
      *      title="name",
      *      description="User's name",
-     *      example="KYXT"
+     *      example="KYXT",
+     *      minLength=3,
+     *      maxLength=255,
      * )
      *
      * @var string
@@ -31,7 +33,9 @@ class RegisterRequest
      * @OA\Property(
      *      title="email",
      *      description="User's email",
-     *      example="user@user.com"
+     *      example="user@user.com",
+     *      minLength=5,
+     *      maxLength=255,
      * )
      *
      * @var string
@@ -42,7 +46,9 @@ class RegisterRequest
      * @OA\Property(
      *      title="password",
      *      description="User's password",
-     *      example="useruser"
+     *      example="useruser",
+     *      minLength=8,
+     *      maxLength=255,
      * )
      *
      * @var string

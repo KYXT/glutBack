@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\Auth;
+namespace App\Http\Requests\Api\Admin\ProductSubcategories;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class StoreProductSubcategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'     => 'required|email|min:5|max:255|exists:users,email',
-            'password'  => 'required|string|min:8|max:255'
+            'category_id'   => 'required|integer|exists:product_categories,id',
+            'name'          => 'required|unique:product_subcategories,name|string|min:2|max:180',
         ];
     }
 }

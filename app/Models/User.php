@@ -40,7 +40,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role', // 1- user, 2- moderator, 3- admin
+        'role', // 1- user, 2- moderator, 3- admin, 4- creator
         'phone'
     ];
 
@@ -93,5 +93,13 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role == 3;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCreator(): bool
+    {
+        return $this->role == 4;
     }
 }

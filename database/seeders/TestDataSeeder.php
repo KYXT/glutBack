@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class AdminSeeder extends Seeder
+class TestDataSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -33,6 +33,12 @@ class AdminSeeder extends Seeder
                 'email'     => 'admin@admin.com',
                 'password'  => Hash::make('adminadmin'),
                 'role'      => 3
+            ],
+            [
+                'name'      => 'creator',
+                'email'     => 'creator@creator.com',
+                'password'  => Hash::make('creatorcreator'),
+                'role'      => 4
             ],
         ]);
     }
