@@ -27,8 +27,14 @@ $router->version('v1', function ($route) {
 
             // Post-Categories
             $route->group(['prefix' => 'post-categories'], function ($route) {
-                $route->get('', 'PostCategoryController@index');
-                $route->get('{slug}', 'PostCategoryController@show');
+                $route->get('',         'PostCategoryController@index');
+                $route->get('{slug}',   'PostCategoryController@show');
+            });
+
+            // Product-Categories
+            $route->group(['prefix' => 'product-categories'], function ($route) {
+                $route->get('',         'ProductCategoryController@index');
+                $route->get('{slug}',   'ProductCategoryController@show');
             });
 
             $route->group(['middleware' => 'auth:api'], function ($route) {
