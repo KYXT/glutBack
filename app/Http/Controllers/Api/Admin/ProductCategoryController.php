@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Helpers\Uploader;
 use App\Http\Helpers\UrlGeneratorHelper;
 use App\Http\Requests\Api\Admin\ProductCategories\StoreProductCategoryRequest;
+use App\Http\Requests\Api\Admin\ProductCategories\StoreProductSubcategoryRequest;
 use App\Http\Requests\Api\Admin\ProductCategories\UpdateProductCategoryRequest;
+use App\Http\Requests\Api\Admin\ProductCategories\UpdateProductSubcategoryRequest;
 use App\Models\ProductCategory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\App;
 
 class ProductCategoryController extends Controller
@@ -38,7 +41,7 @@ class ProductCategoryController extends Controller
      * )
      *
      * @param StoreProductCategoryRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(StoreProductCategoryRequest $request)
     {
@@ -56,7 +59,7 @@ class ProductCategoryController extends Controller
     }
 
     /**
-     * Store products category
+     * Update products category
      *
      * @OA\Post(
      *     path="/admin/product-categories/update/{slug}",
@@ -92,7 +95,7 @@ class ProductCategoryController extends Controller
      *
      * @param UpdateProductCategoryRequest $request
      * @param $slug
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function update(UpdateProductCategoryRequest $request, $slug)
     {
@@ -128,6 +131,76 @@ class ProductCategoryController extends Controller
 
         return $this->success([
             'product-category' => $productCategory
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @OA\Post(
+     *     path="/admin/product-categories/delete/{slug}",
+     *     operationId="delete-product-category",
+     *     tags={"Admin-Categories-Products"},
+     *     summary="Delete products category by slug",
+     *     description="Delete products category",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\Parameter(
+     *          name="slug",
+     *          description="Products category slug",
+     *          required=true,
+     *          in="path",
+     *          example="produkty-mleczne",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Successfully deleted")
+     *          )
+     *      ),
+     *     @OA\Response(
+     *          response=500,
+     *          description="Item not founded",
+     *          @OA\JsonContent(example="Item not founded")
+     *      ),
+     * )
+     *
+     * @param $slug
+     * @return JsonResponse
+     */
+    public function delete($slug)
+    {
+        $lang = App::getLocale();
+
+        $productCategory = ProductCategory::where([
+            'lang' => $lang,
+            'slug' => $slug
+        ])
+            ->withCount('subcategories')
+            ->first();
+
+        if (!$productCategory) {
+            return $this->error([
+                __('errors.not-founded')
+            ]);
+        }
+
+        if ($productCategory->subcategories > 0) {
+            return $this->error([
+                __('products.subcategories-count-error')
+            ]);
+        }
+
+        Uploader::deleteAttachment($productCategory->image);
+        $productCategory->delete();
+
+        return $this->success([
+            'message' => __('success.delete')
         ]);
     }
 }

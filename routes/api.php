@@ -92,6 +92,18 @@ $router->version('v1', function ($route) {
                                 $route->post('delete/{slug}', 'ProductCategoryController@delete');
                             }
                         );
+
+                        // Product-Subcategories
+                        $route->group(
+                            [
+                                'prefix' => 'product-subcategories'
+                            ],
+                            function ($route) {
+                                $route->post('store', 'ProductSubcategoryController@store');
+                                $route->post('update/{slug}', 'ProductSubcategoryController@update');
+                                $route->post('delete/{slug}', 'ProductSubcategoryController@delete');
+                            }
+                        );
                     }
                 );
             });

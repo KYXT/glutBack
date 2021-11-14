@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductCategory extends Model
+class ProductSubcategory extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'lang',
+        'category_id',
         'slug',
         'name',
-        'image'
     ];
 
     protected $hidden = [
@@ -22,10 +21,10 @@ class ProductCategory extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function subcategories()
+    public function category()
     {
-        return $this->hasMany(ProductSubcategory::class, 'category_id');
+        return $this->belongsTo(ProductCategory::class, 'id');
     }
 }
