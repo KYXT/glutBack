@@ -583,6 +583,49 @@
                 ]
             }
         },
+        "/admin/products/store": {
+            "post": {
+                "tags": [
+                    "Admin-Products"
+                ],
+                "summary": "Create product",
+                "description": "!!! use form-data for api !!!. Example of request: https://drive.google.com/file/d/1lNZPNG8k4ieZeR4Zohj1Ci61s92vZafP/view?usp=sharing",
+                "operationId": "store-product",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreProductRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/admin/product-subcategories/store": {
             "post": {
                 "tags": [
@@ -864,6 +907,27 @@
                             "application/json": {
                                 "schema": {},
                                 "example": "List of posts with category. Pagination by 10"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/maps": {
+            "get": {
+                "tags": [
+                    "Maps"
+                ],
+                "summary": "Get all maps",
+                "description": "Change Content-Language header to change language from default",
+                "operationId": "maps-get",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "List of maps."
                             }
                         }
                     }
@@ -1293,6 +1357,68 @@
                         "description": "Name of posts category",
                         "type": "string",
                         "example": "Aktualności"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreProductRequest": {
+                "title": "StorePostRequest",
+                "description": "Class StorePostRequest",
+                "required": [
+                    "subcategory_id",
+                    "map_id",
+                    "lang",
+                    "name",
+                    "images"
+                ],
+                "properties": {
+                    "subcategory_id": {
+                        "title": "subcategory_id",
+                        "description": "Products subcategory ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "map_id": {
+                        "title": "map_id",
+                        "description": "Products map ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "lang": {
+                        "title": "lang",
+                        "description": "language of post",
+                        "type": "string",
+                        "example": "pl"
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name",
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 1,
+                        "example": "Chleb"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "product description",
+                        "type": "string",
+                        "maxLength": 10000,
+                        "minLength": 1,
+                        "example": "Вкусный хлеб"
+                    },
+                    "maker": {
+                        "title": "maker",
+                        "description": "product maker",
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 1,
+                        "example": "Гродненский хлебозавод"
+                    },
+                    "images": {
+                        "title": "images",
+                        "description": "array of images",
+                        "type": "string",
+                        "example": "['image' => image, 'is_main' => 1]"
                     }
                 },
                 "type": "object"

@@ -15,4 +15,12 @@ class ProductImage extends Model
         'link',
         'is_main',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

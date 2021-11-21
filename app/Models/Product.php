@@ -5,14 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductSubcategory extends Model
+class Product extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'category_id',
+        'subcategory_id',
+        'map_id',
+        'lang',
         'slug',
         'name',
+        'description',
+        'maker'
     ];
 
     protected $hidden = [
@@ -23,16 +27,24 @@ class ProductSubcategory extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category()
+    public function subcategory()
     {
-        return $this->belongsTo(ProductCategory::class, 'id');
+        return $this->belongsTo(ProductSubcategory::class, 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function map()
+    {
+        return $this->belongsTo(Map::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function products()
+    public function images()
     {
-        return $this->hasMany(Product::class, 'subcategory_id');
+        return $this->hasMany(ProductImage::class);
     }
 }

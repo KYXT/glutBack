@@ -37,6 +37,11 @@ $router->version('v1', function ($route) {
                 $route->get('{slug}',   'ProductCategoryController@show');
             });
 
+            // Product-Categories
+            $route->group(['prefix' => 'maps'], function ($route) {
+                $route->get('',         'MapController@index');
+            });
+
             $route->group(['middleware' => 'auth:api'], function ($route) {
                 //User
                 $route->group(
@@ -65,6 +70,8 @@ $router->version('v1', function ($route) {
                                 $route->get('', 'UserController@all');
                             }
                         );
+
+                        //Posts
                         $route->group(
                             [
                                 'prefix' => 'posts',
@@ -75,6 +82,7 @@ $router->version('v1', function ($route) {
                                 $route->post('delete/{slug}',   'PostController@delete');
                             }
                         );
+
                         // Post-Categories
                         $route->group(
                             [
@@ -84,6 +92,18 @@ $router->version('v1', function ($route) {
                                 $route->post('store',           'PostCategoryController@store');
                                 $route->post('update/{slug}',   'PostCategoryController@update');
                                 $route->post('delete/{slug}',   'PostCategoryController@delete');
+                            }
+                        );
+
+                        //Products
+                        $route->group(
+                            [
+                                'prefix' => 'products',
+                            ],
+                            function ($route) {
+                                $route->post('store',           'ProductController@store');
+                                $route->post('update/{slug}',   'ProductController@update');
+                                $route->post('delete/{slug}',   'ProductController@delete');
                             }
                         );
 

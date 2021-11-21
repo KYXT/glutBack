@@ -17,6 +17,7 @@ class CreateProductImagesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->string('link');
+            $table->boolean('is_main')->default(false);
         });
     }
 
