@@ -37,6 +37,11 @@ $router->version('v1', function ($route) {
                 $route->get('{slug}',   'ProductCategoryController@show');
             });
 
+            // Product-Categories
+            $route->group(['prefix' => 'maps'], function ($route) {
+                $route->get('',         'MapController@index');
+            });
+
             $route->group(['middleware' => 'auth:api'], function ($route) {
                 //User
                 $route->group(
@@ -65,25 +70,40 @@ $router->version('v1', function ($route) {
                                 $route->get('', 'UserController@all');
                             }
                         );
+
+                        //Posts
                         $route->group(
                             [
                                 'prefix' => 'posts',
                             ],
                             function ($route) {
-                                $route->post('store',  'PostController@store');
-                                $route->post('update/{slug}', 'PostController@update');
-                                $route->post('delete/{slug}', 'PostController@delete');
+                                $route->post('store',           'PostController@store');
+                                $route->post('update/{slug}',   'PostController@update');
+                                $route->post('delete/{slug}',   'PostController@delete');
                             }
                         );
+
                         // Post-Categories
                         $route->group(
                             [
                                 'prefix' => 'post-categories'
                             ],
                             function ($route) {
-                                $route->post('store', 'PostCategoryController@store');
-                                $route->post('update/{slug}', 'PostCategoryController@update');
-                                $route->post('delete/{slug}', 'PostCategoryController@delete');
+                                $route->post('store',           'PostCategoryController@store');
+                                $route->post('update/{slug}',   'PostCategoryController@update');
+                                $route->post('delete/{slug}',   'PostCategoryController@delete');
+                            }
+                        );
+
+                        //Products
+                        $route->group(
+                            [
+                                'prefix' => 'products',
+                            ],
+                            function ($route) {
+                                $route->post('store',           'ProductController@store');
+                                $route->post('update/{slug}',   'ProductController@update');
+                                $route->post('delete/{slug}',   'ProductController@delete');
                             }
                         );
 
@@ -93,9 +113,9 @@ $router->version('v1', function ($route) {
                                 'prefix' => 'product-categories'
                             ],
                             function ($route) {
-                                $route->post('store', 'ProductCategoryController@store');
-                                $route->post('update/{slug}', 'ProductCategoryController@update');
-                                $route->post('delete/{slug}', 'ProductCategoryController@delete');
+                                $route->post('store',           'ProductCategoryController@store');
+                                $route->post('update/{slug}',   'ProductCategoryController@update');
+                                $route->post('delete/{slug}',   'ProductCategoryController@delete');
                             }
                         );
 
@@ -105,9 +125,21 @@ $router->version('v1', function ($route) {
                                 'prefix' => 'product-subcategories'
                             ],
                             function ($route) {
-                                $route->post('store', 'ProductSubcategoryController@store');
-                                $route->post('update/{slug}', 'ProductSubcategoryController@update');
-                                $route->post('delete/{slug}', 'ProductSubcategoryController@delete');
+                                $route->post('store',           'ProductSubcategoryController@store');
+                                $route->post('update/{slug}',   'ProductSubcategoryController@update');
+                                $route->post('delete/{slug}',   'ProductSubcategoryController@delete');
+                            }
+                        );
+
+                        // Maps
+                        $route->group(
+                            [
+                                'prefix' => 'maps'
+                            ],
+                            function ($route) {
+                                $route->post('store',           'MapController@store');
+                                $route->post('update/{slug}',   'MapController@update');
+                                $route->post('delete/{slug}',   'MapController@delete');
                             }
                         );
                     }

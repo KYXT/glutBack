@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Helpers\Uploader;
 use App\Http\Helpers\UrlGeneratorHelper;
 use App\Http\Requests\Api\Admin\ProductCategories\StoreProductCategoryRequest;
-use App\Http\Requests\Api\Admin\ProductCategories\StoreProductSubcategoryRequest;
 use App\Http\Requests\Api\Admin\ProductCategories\UpdateProductCategoryRequest;
-use App\Http\Requests\Api\Admin\ProductCategories\UpdateProductSubcategoryRequest;
 use App\Models\ProductCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\App;
@@ -190,7 +188,7 @@ class ProductCategoryController extends Controller
             ]);
         }
 
-        if ($productCategory->subcategories > 0) {
+        if (count($productCategory->subcategories) > 0) {
             return $this->error([
                 __('products.subcategories-count-error')
             ]);
