@@ -70,9 +70,9 @@ $router->version('v1', function ($route) {
                                 'prefix' => 'posts',
                             ],
                             function ($route) {
-                                $route->post('store',  'PostController@store');
-                                $route->post('update/{slug}', 'PostController@update');
-                                $route->post('delete/{slug}', 'PostController@delete');
+                                $route->post('store',           'PostController@store');
+                                $route->post('update/{slug}',   'PostController@update');
+                                $route->post('delete/{slug}',   'PostController@delete');
                             }
                         );
                         // Post-Categories
@@ -81,9 +81,9 @@ $router->version('v1', function ($route) {
                                 'prefix' => 'post-categories'
                             ],
                             function ($route) {
-                                $route->post('store', 'PostCategoryController@store');
-                                $route->post('update/{slug}', 'PostCategoryController@update');
-                                $route->post('delete/{slug}', 'PostCategoryController@delete');
+                                $route->post('store',           'PostCategoryController@store');
+                                $route->post('update/{slug}',   'PostCategoryController@update');
+                                $route->post('delete/{slug}',   'PostCategoryController@delete');
                             }
                         );
 
@@ -93,9 +93,9 @@ $router->version('v1', function ($route) {
                                 'prefix' => 'product-categories'
                             ],
                             function ($route) {
-                                $route->post('store', 'ProductCategoryController@store');
-                                $route->post('update/{slug}', 'ProductCategoryController@update');
-                                $route->post('delete/{slug}', 'ProductCategoryController@delete');
+                                $route->post('store',           'ProductCategoryController@store');
+                                $route->post('update/{slug}',   'ProductCategoryController@update');
+                                $route->post('delete/{slug}',   'ProductCategoryController@delete');
                             }
                         );
 
@@ -105,9 +105,21 @@ $router->version('v1', function ($route) {
                                 'prefix' => 'product-subcategories'
                             ],
                             function ($route) {
-                                $route->post('store', 'ProductSubcategoryController@store');
-                                $route->post('update/{slug}', 'ProductSubcategoryController@update');
-                                $route->post('delete/{slug}', 'ProductSubcategoryController@delete');
+                                $route->post('store',           'ProductSubcategoryController@store');
+                                $route->post('update/{slug}',   'ProductSubcategoryController@update');
+                                $route->post('delete/{slug}',   'ProductSubcategoryController@delete');
+                            }
+                        );
+
+                        // Maps
+                        $route->group(
+                            [
+                                'prefix' => 'maps'
+                            ],
+                            function ($route) {
+                                $route->post('store',           'MapController@store');
+                                $route->post('update/{slug}',   'MapController@update');
+                                $route->post('delete/{slug}',   'MapController@delete');
                             }
                         );
                     }

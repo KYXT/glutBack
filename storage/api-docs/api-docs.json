@@ -11,6 +11,104 @@
         }
     ],
     "paths": {
+        "/admin/maps/store": {
+            "post": {
+                "tags": [
+                    "Admin-Maps"
+                ],
+                "summary": "Create map",
+                "description": "",
+                "operationId": "maps-store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreMapRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin/maps/update/{id}": {
+            "post": {
+                "tags": [
+                    "Admin-Maps"
+                ],
+                "summary": "Update map",
+                "description": "Update map by id",
+                "operationId": "maps-update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Map id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreMapRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully updated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/admin/post-categories/store": {
             "post": {
                 "tags": [
@@ -991,6 +1089,40 @@
     },
     "components": {
         "schemas": {
+            "StoreMapRequest": {
+                "title": "StoreMapRequest",
+                "description": "Class StoreMapRequest",
+                "required": [
+                    "lang",
+                    "name",
+                    "link"
+                ],
+                "properties": {
+                    "lang": {
+                        "title": "lang",
+                        "description": "Map language",
+                        "type": "string",
+                        "example": "pl"
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "Map name",
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 2,
+                        "example": "Biedronka i Żabka"
+                    },
+                    "link": {
+                        "title": "link",
+                        "description": "link",
+                        "type": "string",
+                        "maxLength": 5000,
+                        "minLength": 2,
+                        "example": "<iframe src='https://www.google.com/maps/d/u/0/embed?mid=1e4Fb2C0P46izoCvA5uLGgUizJsnQ1Gbk' width='640' height='480'></iframe>"
+                    }
+                },
+                "type": "object"
+            },
             "StorePostRequest": {
                 "title": "StorePostRequest",
                 "description": "Class StorePostRequest",
