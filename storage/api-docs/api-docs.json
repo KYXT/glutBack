@@ -109,6 +109,60 @@
                 ]
             }
         },
+        "/admin/maps/delete/{id}": {
+            "post": {
+                "tags": [
+                    "Admin-Maps"
+                ],
+                "summary": "Delete map by id",
+                "description": "Delete map by id",
+                "operationId": "maps-delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Map id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Item not founded",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Item not founded"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/admin/post-categories/store": {
             "post": {
                 "tags": [
@@ -724,6 +778,51 @@
                 ]
             }
         },
+        "/admin/product-subcategories/delete/{slug}": {
+            "post": {
+                "tags": [
+                    "Admin-Subcategories-Products"
+                ],
+                "summary": "Delete products subcategory",
+                "description": "",
+                "operationId": "delete-product-subcategory",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Products-subcategory slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "jogurt"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/admin/users": {
             "get": {
                 "tags": [
@@ -1066,7 +1165,7 @@
                     "Product categories"
                 ],
                 "summary": "Get all products categories",
-                "description": "Return all products categories",
+                "description": "Return all products categories with subcategories",
                 "operationId": "product-categories",
                 "responses": {
                     "200": {
@@ -1117,6 +1216,60 @@
                             "application/json": {
                                 "schema": {},
                                 "example": "Item not founded"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Get all products",
+                "description": "Return all products with category, subcategory and images, paginated by 12",
+                "operationId": "products",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "List of products. Pagination by 12"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products/{slug}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Get one product by slug",
+                "description": "Return product with category, subcategory and images, paginated by 12",
+                "operationId": "products-show",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Product slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "moloko-moloczyj-mir"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "One product."
                             }
                         }
                     }
@@ -1182,7 +1335,7 @@
                         "type": "string",
                         "maxLength": 5000,
                         "minLength": 2,
-                        "example": "<iframe src='https://www.google.com/maps/d/u/0/embed?mid=1e4Fb2C0P46izoCvA5uLGgUizJsnQ1Gbk' width='640' height='480'></iframe>"
+                        "example": "https://www.google.com/maps/d/u/0/embed?mid=1e4Fb2C0P46izoCvA5uLGgUizJsnQ1Gbk"
                     }
                 },
                 "type": "object"

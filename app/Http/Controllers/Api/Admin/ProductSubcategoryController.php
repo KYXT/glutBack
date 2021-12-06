@@ -140,4 +140,64 @@ class ProductSubcategoryController extends Controller
             'product-subcategory' => $productSubcategory
         ]);
     }
+
+    /**
+     * Update products subcategory
+     *
+     * @OA\Post(
+     *     path="/admin/product-subcategories/delete/{slug}",
+     *     operationId="delete-product-subcategory",
+     *     tags={"Admin-Subcategories-Products"},
+     *     summary="Delete products subcategory",
+     *     description="",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\Parameter(
+     *          name="slug",
+     *          description="Products-subcategory slug",
+     *          required=true,
+     *          in="path",
+     *          example="jogurt",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Successfully created")
+     *          )
+     *      )
+     * )
+     *
+     * @param $slug
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete($slug)
+    {
+        $productSubcategory = ProductSubcategory::where([
+            'slug' => $slug
+        ])
+            ->first();
+
+        if (!$productSubcategory) {
+            return $this->error([
+                __('errors.not-founded')
+            ]);
+        }
+
+        if ($productSubcategory->products()->count() > 0) {
+            return $this->error([
+                __('products.products-count-error')
+            ]);
+        }
+
+        $productSubcategory->delete();
+
+        return $this->success([
+            'message'   => __('success.delete'),
+        ]);
+    }
 }

@@ -44,7 +44,7 @@ class StoreMapRequest
      * @OA\Property(
      *      title="link",
      *      description="link",
-     *      example="<iframe src='https://www.google.com/maps/d/u/0/embed?mid=1e4Fb2C0P46izoCvA5uLGgUizJsnQ1Gbk' width='640' height='480'></iframe>",
+     *      example="https://www.google.com/maps/d/u/0/embed?mid=1e4Fb2C0P46izoCvA5uLGgUizJsnQ1Gbk",
      *      minLength=2,
      *      maxLength=5000,
      * )
