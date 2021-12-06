@@ -31,6 +31,12 @@ $router->version('v1', function ($route) {
                 $route->get('{slug}',   'PostCategoryController@show');
             });
 
+            // Products
+            $route->group(['prefix' => 'products'], function ($route) {
+                $route->get('',         'ProductController@index');
+                $route->get('{slug}',   'ProductController@show');
+            });
+
             // Product-Categories
             $route->group(['prefix' => 'product-categories'], function ($route) {
                 $route->get('',         'ProductCategoryController@index');
@@ -101,9 +107,11 @@ $router->version('v1', function ($route) {
                                 'prefix' => 'products',
                             ],
                             function ($route) {
-                                $route->post('store',           'ProductController@store');
-                                $route->post('update/{slug}',   'ProductController@update');
-                                $route->post('delete/{slug}',   'ProductController@delete');
+                                $route->post('store',               'ProductController@store');
+                                $route->post('update/{slug}',       'ProductController@update');
+                                $route->post('delete/{slug}',       'ProductController@delete');
+                                $route->post('delete-image/{id}',   'ProductController@deleteImage');
+                                $route->post('main-image/{id}',     'ProductController@setMainImage');
                             }
                         );
 
@@ -138,8 +146,8 @@ $router->version('v1', function ($route) {
                             ],
                             function ($route) {
                                 $route->post('store',           'MapController@store');
-                                $route->post('update/{slug}',   'MapController@update');
-                                $route->post('delete/{slug}',   'MapController@delete');
+                                $route->post('update/{id}',     'MapController@update');
+                                $route->post('delete/{id}',     'MapController@delete');
                             }
                         );
                     }

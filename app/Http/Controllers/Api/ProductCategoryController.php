@@ -17,7 +17,7 @@ class ProductCategoryController extends Controller
      *     operationId="product-categories",
      *     tags={"Product categories"},
      *     summary="Get all products categories",
-     *     description="Return all products categories",
+     *     description="Return all products categories with subcategories",
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -32,6 +32,9 @@ class ProductCategoryController extends Controller
         $lang = App::getLocale();
 
         $categories = ProductCategory::where('lang', $lang)
+                            ->with(['subcategories' => function ($q) {
+                                $q->orderBy('name');
+                            }])
                             ->orderBy('name')
                             ->get();
 
