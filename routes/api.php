@@ -107,9 +107,11 @@ $router->version('v1', function ($route) {
                                 'prefix' => 'products',
                             ],
                             function ($route) {
-                                $route->post('store',           'ProductController@store');
-                                $route->post('update/{slug}',   'ProductController@update');
-                                $route->post('delete/{slug}',   'ProductController@delete');
+                                $route->post('store',               'ProductController@store');
+                                $route->post('update/{slug}',       'ProductController@update');
+                                $route->post('delete/{slug}',       'ProductController@delete');
+                                $route->post('delete-image/{id}',   'ProductController@deleteImage');
+                                $route->post('main-image/{id}',     'ProductController@setMainImage');
                             }
                         );
 

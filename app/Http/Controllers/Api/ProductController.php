@@ -18,6 +18,26 @@ class ProductController extends Controller
      *     tags={"Products"},
      *     summary="Get all products",
      *     description="Return all products with category, subcategory and images, paginated by 12",
+     *     @OA\Parameter(
+     *          name="category",
+     *          description="Product category slug",
+     *          required=false,
+     *          in="query",
+     *          example="molochnyje-produkty",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *     ),
+     *     @OA\Parameter(
+     *          name="subcategory",
+     *          description="Product subcategory slug",
+     *          required=false,
+     *          in="query",
+     *          example="moloko",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *     ),
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -32,12 +52,12 @@ class ProductController extends Controller
         $categorySlug = null;
         $subcategorySlug = null;
 
-        if ($request->has('category_slug')) {
-            $categorySlug = $request->get('category_slug');
+        if ($request->has('category')) {
+            $categorySlug = $request->get('category');
         }
 
-        if ($request->has('subcategory_slug')) {
-            $subcategorySlug = $request->get('subcategory_slug');
+        if ($request->has('subcategory')) {
+            $subcategorySlug = $request->get('subcategory');
         }
 
         $products = Product::orderBy('name')
