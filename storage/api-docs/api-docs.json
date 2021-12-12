@@ -11,6 +11,158 @@
         }
     ],
     "paths": {
+        "/admin/forum/categories/store": {
+            "post": {
+                "tags": [
+                    "Admin-Categories-Forum"
+                ],
+                "summary": "Create forum category",
+                "description": "Store posts category",
+                "operationId": "store-forum-category",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreForumCategoryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin/forum/categories/update/{slug}": {
+            "post": {
+                "tags": [
+                    "Admin-Categories-Forum"
+                ],
+                "summary": "Update forum category",
+                "description": "Display a listing of the resource.",
+                "operationId": "update-forum-category",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Forum category slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "leki"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreForumCategoryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully updated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/admin/forum/categories/delete/{slug}": {
+            "post": {
+                "tags": [
+                    "Admin-Categories-Forum"
+                ],
+                "summary": "Delete forum categories by slug",
+                "description": "Delete forum category. Can be done only when no topics inside",
+                "operationId": "delete-forum-category",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Forum category slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "leki"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Item not founded",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Item not founded"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/admin/maps/store": {
             "post": {
                 "tags": [
@@ -1508,6 +1660,22 @@
     },
     "components": {
         "schemas": {
+            "StoreForumCategoryRequest": {
+                "title": "StoreForumCategoryRequest",
+                "description": "Class StorePostCategoryRequest",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of forum category",
+                        "type": "string",
+                        "example": "Leki"
+                    }
+                },
+                "type": "object"
+            },
             "StoreMapRequest": {
                 "title": "StoreMapRequest",
                 "description": "Class StoreMapRequest",

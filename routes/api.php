@@ -68,6 +68,25 @@ $router->version('v1', function ($route) {
                         'prefix' => 'admin',
                     ],
                     function ($route) {
+                        //Forum
+                        $route->group(
+                            [
+                                'prefix' => 'forum',
+                            ],
+                            function ($route) {
+                                $route->group(
+                                    [
+                                        'prefix' => 'categories',
+                                    ],
+                                    function ($route) {
+                                        $route->post('store',           'ForumCategoryController@store');
+                                        $route->post('update/{slug}',   'ForumCategoryController@update');
+                                        $route->post('delete/{slug}',   'ForumCategoryController@delete');
+                                    }
+                                );
+                            }
+                        );
+                        
                         $route->group(
                             [
                                 'prefix' => 'users',
