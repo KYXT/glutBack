@@ -1323,6 +1323,69 @@
                 }
             }
         },
+        "/forum-categories": {
+            "get": {
+                "tags": [
+                    "Forum-categories"
+                ],
+                "summary": "Get all forum categories",
+                "description": "Return all forum categories with topics count, paginated by 12",
+                "operationId": "forum-categories",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "List of forum categories. Pagination by 12"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/forum-categories/{slug}": {
+            "get": {
+                "tags": [
+                    "Forum-categories"
+                ],
+                "summary": "Get forum category by slug",
+                "description": "Return forum category with topics",
+                "operationId": "show forum category",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Forum category slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "gdzie-kupic-leki"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Forum category with topics"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Item not founded",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Item not founded"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/main-page": {
             "get": {
                 "tags": [

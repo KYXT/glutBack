@@ -7,5 +7,6 @@ return [
     'language-subcategory'          => "Product and and category language are different",
     'is-main-image'                 => "One image need to have is_main=true",
     'delete-main-image'             => "Can't delete main image. Choose another main image first",
-    'count-images'                  => "Can't delete last image"
+    'count-images'                  => "Can't delete last image",
+    'subcategory-category-relation' => "Subcategory doesn't have related category",
 ];

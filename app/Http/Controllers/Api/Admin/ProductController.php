@@ -63,6 +63,10 @@ class ProductController extends Controller
         if (!$subcategory) {
             return $this->error(__('errors.not-founded'));
         }
+        
+        if (!isset($subcategory->category)) {
+            return $this->error(__('products.subcategory-category-relation'));
+        }
 
         if ($subcategory->category->lang != $data['lang']) {
             return $this->error(__('products.language-subcategory'));
