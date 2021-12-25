@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class ProductController extends Controller
 {
@@ -49,6 +50,8 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        $lang = App::getLocale();
+    
         $categorySlug = null;
         $subcategorySlug = null;
 
@@ -61,6 +64,7 @@ class ProductController extends Controller
         }
 
         $products = Product::orderBy('name')
+            ->where('lang', $lang)
             ->with('images');
 
         if ($categorySlug) {

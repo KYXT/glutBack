@@ -18,6 +18,12 @@ $router->version('v1', function ($route) {
                 $route->post('login', 'LoginController@login')->name('login');
                 $route->post('logout', 'LoginController@logout');
             });
+    
+            // Forum
+            $route->group(['prefix' => 'forum-categories'], function ($route) {
+                $route->get('',         'ForumCategoryController@index');
+                $route->get('{slug}',   'ForumCategoryController@show');
+            });
 
             // Posts
             $route->group(['prefix' => 'posts'], function ($route) {
