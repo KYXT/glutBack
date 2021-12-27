@@ -1693,6 +1693,49 @@
                 }
             }
         },
+        "/user/forum-topics/store": {
+            "post": {
+                "tags": [
+                    "User-Forum-topics"
+                ],
+                "summary": "Create forum topic",
+                "description": "Store posts category",
+                "operationId": "store-forum-topic",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreForumTopicRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/user": {
             "get": {
                 "tags": [
@@ -2209,6 +2252,40 @@
                         "description": "Time when user was updated",
                         "type": "string",
                         "example": "2021-08-21T00:07:55.000000Z"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreForumTopicRequest": {
+                "title": "StoreForumTopicRequest",
+                "description": "Class StoreForumTopicRequest",
+                "required": [
+                    "category_id",
+                    "title",
+                    "text"
+                ],
+                "properties": {
+                    "category_id": {
+                        "title": "category_id",
+                        "description": "Forum category id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "title": {
+                        "title": "title",
+                        "description": "Title of user's topic (question)",
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 10,
+                        "example": "Ktoś zna gdzie kupić leki?"
+                    },
+                    "text": {
+                        "title": "text",
+                        "description": "Text of user's topic (question)",
+                        "type": "string",
+                        "maxLength": 2000,
+                        "minLength": 10,
+                        "example": "Szukam pomocy, nie mogę znaleźć lek xxx, czy ktoś kiedyś go kupował?"
                     }
                 },
                 "type": "object"
