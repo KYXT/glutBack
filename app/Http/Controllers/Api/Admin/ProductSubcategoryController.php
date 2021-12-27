@@ -17,7 +17,7 @@ class ProductSubcategoryController extends Controller
      * @OA\Post(
      *     path="/admin/product-subcategories/store",
      *     operationId="store-product-subcategory",
-     *     tags={"Admin-Subcategories-Products"},
+     *     tags={"Admin-Products-Subcategories"},
      *     summary="Create products subcategory",
      *     description="",
      *     security={
@@ -68,7 +68,7 @@ class ProductSubcategoryController extends Controller
      * @OA\Post(
      *     path="/admin/product-subcategories/update/{slug}",
      *     operationId="update-product-subcategory",
-     *     tags={"Admin-Subcategories-Products"},
+     *     tags={"Admin-Products-Subcategories"},
      *     summary="Update products subcategory",
      *     description="",
      *     security={
@@ -147,7 +147,7 @@ class ProductSubcategoryController extends Controller
      * @OA\Post(
      *     path="/admin/product-subcategories/delete/{slug}",
      *     operationId="delete-product-subcategory",
-     *     tags={"Admin-Subcategories-Products"},
+     *     tags={"Admin-Products-Subcategories"},
      *     summary="Delete products subcategory",
      *     description="",
      *     security={

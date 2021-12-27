@@ -79,12 +79,14 @@ class ProductController extends Controller
             });
         }
 
-        $products = $products->paginate(12);
+        $products = $products->with('subcategory.category')
+            ->paginate(12);
 
         foreach ($products as $product) {
+            unset($product['subcategory_id']);
             foreach ($product->images as $key => $item) {
                 if ($item->is_main == true) {
-                    $product['main-image'] = $item['link'];
+                    $product['main_image'] = $item['link'];
                     unset($product->images[$key]);
                     break;
                 }
@@ -138,7 +140,7 @@ class ProductController extends Controller
 
         foreach ($product->images as $key => $item) {
             if ($item->is_main == true) {
-                $product['main-image'] = $item['link'];
+                $product['main_image'] = $item['link'];
                 unset($product->images[$key]);
                 break;
             }

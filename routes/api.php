@@ -63,8 +63,22 @@ $router->version('v1', function ($route) {
                     ],
                     function ($route) {
                         $route->get('', 'ProfileController@user');
+    
+                        //Forum topics
+                        $route->group(
+                            [
+                                'prefix' => 'forum-topics',
+                            ],
+                            function ($route) {
+                                $route->post('store',           'ForumTopicController@store');
+                                $route->post('update/{slug}',   'ForumTopicController@update');
+                                $route->post('close/{slug}',    'ForumTopicController@close');
+                                $route->post('delete/{slug}',   'ForumTopicController@delete');
+                            }
+                        );
                     }
                 );
+                
 
                 //Admin
                 $route->group(

@@ -19,7 +19,7 @@ class PostCategoryController extends Controller
      * @OA\Post(
      *     path="/admin/post-categories/store",
      *     operationId="store-post-category",
-     *     tags={"Admin-Categories-Posts"},
+     *     tags={"Admin-Posts-Categories"},
      *     summary="Create posts category",
      *     security={
      *          {"bearer": {}}
@@ -61,7 +61,7 @@ class PostCategoryController extends Controller
      * @OA\Post(
      *     path="/admin/post-categories/update/{slug}",
      *     operationId="update-post",
-     *     tags={"Admin-Categories-Posts"},
+     *     tags={"Admin-Posts-Categories"},
      *     summary="Update posts category",
      *     security={
      *          {"bearer": {}}
@@ -131,7 +131,7 @@ class PostCategoryController extends Controller
      * @OA\Post(
      *     path="/admin/post-categories/delete/{slug}",
      *     operationId="delete-posts-category",
-     *     tags={"Admin-Categories-Posts"},
+     *     tags={"Admin-Posts-Categories"},
      *     summary="Delete posts categories by slug",
      *     description="Delete posts category",
      *     security={

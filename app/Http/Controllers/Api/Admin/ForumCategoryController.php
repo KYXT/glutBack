@@ -19,7 +19,7 @@ class ForumCategoryController extends Controller
      * @OA\Post(
      *     path="/admin/forum/categories/store",
      *     operationId="store-forum-category",
-     *     tags={"Admin-Categories-Forum"},
+     *     tags={"Admin-Forum-Categories"},
      *     summary="Create forum category",
      *     security={
      *          {"bearer": {}}
@@ -61,7 +61,7 @@ class ForumCategoryController extends Controller
      * @OA\Post(
      *     path="/admin/forum/categories/update/{slug}",
      *     operationId="update-forum-category",
-     *     tags={"Admin-Categories-Forum"},
+     *     tags={"Admin-Forum-Categories"},
      *     summary="Update forum category",
      *     security={
      *          {"bearer": {}}
@@ -131,7 +131,7 @@ class ForumCategoryController extends Controller
      * @OA\Post(
      *     path="/admin/forum/categories/delete/{slug}",
      *     operationId="delete-forum-category",
-     *     tags={"Admin-Categories-Forum"},
+     *     tags={"Admin-Forum-Categories"},
      *     summary="Delete forum categories by slug",
      *     description="Delete forum category. Can be done only when no topics inside",
      *     security={

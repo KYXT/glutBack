@@ -19,7 +19,7 @@ class ProductCategoryController extends Controller
      * @OA\Post(
      *     path="/admin/product-categories/store",
      *     operationId="store-product-category",
-     *     tags={"Admin-Categories-Products"},
+     *     tags={"Admin-Products-Categories"},
      *     summary="Create products category",
      *     description="Use form-data request",
      *     security={
@@ -62,7 +62,7 @@ class ProductCategoryController extends Controller
      * @OA\Post(
      *     path="/admin/product-categories/update/{slug}",
      *     operationId="update-product-category",
-     *     tags={"Admin-Categories-Products"},
+     *     tags={"Admin-Products-Categories"},
      *     summary="Update products category",
      *     description="Use form-data request",
      *     security={
@@ -138,7 +138,7 @@ class ProductCategoryController extends Controller
      * @OA\Post(
      *     path="/admin/product-categories/delete/{slug}",
      *     operationId="delete-product-category",
-     *     tags={"Admin-Categories-Products"},
+     *     tags={"Admin-Products-Categories"},
      *     summary="Delete products category by slug",
      *     description="Delete products category",
      *     security={
