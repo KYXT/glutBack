@@ -14,7 +14,7 @@
         "/admin/forum/categories/store": {
             "post": {
                 "tags": [
-                    "Admin-Categories-Forum"
+                    "Admin-Forum-Categories"
                 ],
                 "summary": "Create forum category",
                 "description": "Store posts category",
@@ -57,7 +57,7 @@
         "/admin/forum/categories/update/{slug}": {
             "post": {
                 "tags": [
-                    "Admin-Categories-Forum"
+                    "Admin-Forum-Categories"
                 ],
                 "summary": "Update forum category",
                 "description": "Display a listing of the resource.",
@@ -112,7 +112,7 @@
         "/admin/forum/categories/delete/{slug}": {
             "post": {
                 "tags": [
-                    "Admin-Categories-Forum"
+                    "Admin-Forum-Categories"
                 ],
                 "summary": "Delete forum categories by slug",
                 "description": "Delete forum category. Can be done only when no topics inside",
@@ -318,7 +318,7 @@
         "/admin/post-categories/store": {
             "post": {
                 "tags": [
-                    "Admin-Categories-Posts"
+                    "Admin-Posts-Categories"
                 ],
                 "summary": "Create posts category",
                 "description": "Store posts category",
@@ -361,7 +361,7 @@
         "/admin/post-categories/update/{slug}": {
             "post": {
                 "tags": [
-                    "Admin-Categories-Posts"
+                    "Admin-Posts-Categories"
                 ],
                 "summary": "Update posts category",
                 "description": "Display a listing of the resource.",
@@ -416,7 +416,7 @@
         "/admin/post-categories/delete/{slug}": {
             "post": {
                 "tags": [
-                    "Admin-Categories-Posts"
+                    "Admin-Posts-Categories"
                 ],
                 "summary": "Delete posts categories by slug",
                 "description": "Delete posts category",
@@ -640,7 +640,7 @@
         "/admin/product-categories/store": {
             "post": {
                 "tags": [
-                    "Admin-Categories-Products"
+                    "Admin-Products-Categories"
                 ],
                 "summary": "Create products category",
                 "description": "Use form-data request",
@@ -683,7 +683,7 @@
         "/admin/product-categories/update/{slug}": {
             "post": {
                 "tags": [
-                    "Admin-Categories-Products"
+                    "Admin-Products-Categories"
                 ],
                 "summary": "Update products category",
                 "description": "Use form-data request",
@@ -738,7 +738,7 @@
         "/admin/product-categories/delete/{slug}": {
             "post": {
                 "tags": [
-                    "Admin-Categories-Products"
+                    "Admin-Products-Categories"
                 ],
                 "summary": "Delete products category by slug",
                 "description": "Delete products category",
@@ -1015,7 +1015,7 @@
         "/admin/product-subcategories/store": {
             "post": {
                 "tags": [
-                    "Admin-Subcategories-Products"
+                    "Admin-Products-Subcategories"
                 ],
                 "summary": "Create products subcategory",
                 "description": "",
@@ -1058,7 +1058,7 @@
         "/admin/product-subcategories/update/{slug}": {
             "post": {
                 "tags": [
-                    "Admin-Subcategories-Products"
+                    "Admin-Products-Subcategories"
                 ],
                 "summary": "Update products subcategory",
                 "description": "",
@@ -1113,7 +1113,7 @@
         "/admin/product-subcategories/delete/{slug}": {
             "post": {
                 "tags": [
-                    "Admin-Subcategories-Products"
+                    "Admin-Products-Subcategories"
                 ],
                 "summary": "Delete products subcategory",
                 "description": "",
