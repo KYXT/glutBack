@@ -1790,6 +1790,106 @@
                 ]
             }
         },
+        "/user/forum-messages/update/{id}": {
+            "post": {
+                "tags": [
+                    "User-Forum-Messages"
+                ],
+                "summary": "Update forum message",
+                "description": "Update forum message text by id",
+                "operationId": "update-forum-message",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Message Id",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        },
+                        "example": "123"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateForumMessageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/forum-messages/delete/{id}": {
+            "post": {
+                "tags": [
+                    "User-Forum-Messages"
+                ],
+                "summary": "Delete forum message",
+                "description": "Delete forum message by id",
+                "operationId": "delete-forum-message",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Message Id",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        },
+                        "example": "123"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/user/forum-topics/store/{categoryId}": {
             "post": {
                 "tags": [
@@ -2512,6 +2612,24 @@
                         "maxLength": 2000,
                         "minLength": 10,
                         "example": "Szukam pomocy, nie mogę znaleźć lek xxx, czy ktoś kiedyś go kupował?"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateForumMessageRequest": {
+                "title": "UpdateForumMessageRequest",
+                "description": "Class UpdateForumMessageRequest",
+                "required": [
+                    "text"
+                ],
+                "properties": {
+                    "text": {
+                        "title": "text",
+                        "description": "Text of user's message (question)",
+                        "type": "string",
+                        "maxLength": 2000,
+                        "minLength": 10,
+                        "example": "Tak, kupowałem ten lek wczesniej tydzień temu w aptece yyy"
                     }
                 },
                 "type": "object"

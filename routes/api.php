@@ -28,8 +28,7 @@ $router->version('v1', function ($route) {
                 $route->group(['prefix' => 'topics'], function ($route) {
                     $route->get('{id}',         'ForumController@showTopic');
                 });
-            });
-            
+            });            
 
             // Posts
             $route->group(['prefix' => 'posts'], function ($route) {
@@ -89,8 +88,8 @@ $router->version('v1', function ($route) {
                             ],
                             function ($route) {
                                 $route->post('store/{topicId}',    'ForumMessageController@store');
-                                $route->post('update/{id}',        'ForumTopicController@update');
-                                $route->post('delete/{id}',        'ForumTopicController@delete');
+                                $route->post('update/{id}',        'ForumMessageController@update');
+                                $route->post('delete/{id}',        'ForumMessageController@delete');
                             }
                         );
                     }

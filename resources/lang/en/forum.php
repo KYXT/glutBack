@@ -6,4 +6,6 @@ return [
     'user'                   => "You don't have permissions to use that item",
     'reply-error'            => "You can't reply on message from another topic",
     'closed-topic'           => "You can't change closed topic",
+    'delete-message-error'   => "Can't delete forum message, because replies messages are set",
+    'delete-topic-error'     => "Can't delete forum topic, because messages inside are set",
 ];

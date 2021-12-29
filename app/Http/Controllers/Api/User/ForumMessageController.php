@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\User\ForumMessages\StoreForumMessageRequest;
+use App\Http\Requests\Api\User\ForumMessages\UpdateForumMessageRequest;
 use App\Models\ForumMessage;
 use App\Models\ForumTopic;
 use Illuminate\Http\JsonResponse;
@@ -86,6 +87,127 @@ class ForumMessageController extends Controller
     
         return $this->success([
             'forumMessage' =>  $forumMessage
+        ]);
+    }
+    
+    /**
+     * Update forum message
+     *
+     * @OA\Post(
+     *     path="/user/forum-messages/update/{id}",
+     *     operationId="update-forum-message",
+     *     tags={"User-Forum-Messages"},
+     *     summary="Update forum message",
+     *     description="Update forum message text by id",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Message Id",
+     *          required=true,
+     *          in="path",
+     *          example="123",
+     *          @OA\Schema(
+     *              type="int"
+     *          )
+     *     ),
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/UpdateForumMessageRequest")
+     *      ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Successfully created")
+     *          )
+     *      )
+     * )
+     *
+     * @param UpdateForumMessageRequest $request
+     * @param $id
+     * @return JsonResponse
+     */
+    public function update(UpdateForumMessageRequest $request, $id)
+    {
+        $forumMessage = ForumMessage::where('id', $id)
+            ->first();
+    
+        if (!$forumMessage) {
+            return $this->error(__('errors.not-founded'));
+        }
+    
+        $user = Auth::user();
+        if (!$user->isAdmin() && !$user->isCreator() && !$user->isModerator() && $user->id != $forumMessage->user_id) {
+            return $this->error(__('forum.user'));
+        }
+        
+        $data = $request->validated();
+        $forumMessage->update($data);
+        
+        return $this->success([
+            'forumMessage' =>  $forumMessage
+        ]);
+    }
+    
+    /**
+     * Delete forum message
+     *
+     * @OA\Post(
+     *     path="/user/forum-messages/delete/{id}",
+     *     operationId="delete-forum-message",
+     *     tags={"User-Forum-Messages"},
+     *     summary="Delete forum message",
+     *     description="Delete forum message by id",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Message Id",
+     *          required=true,
+     *          in="path",
+     *          example="123",
+     *          @OA\Schema(
+     *              type="int"
+     *          )
+     *     ),     
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Successfully created")
+     *          )
+     *      )
+     * )
+     *
+     * @param $id
+     * @return JsonResponse
+     */
+    public function delete($id)
+    {
+        $forumMessage = ForumMessage::where('id', $id)
+            ->with('replies')
+            ->first();
+        
+        if (!$forumMessage) {
+            return $this->error(__('errors.not-founded'));
+        }
+    
+        $user = Auth::user();
+        if (!$user->isAdmin() && !$user->isCreator() && !$user->isModerator() && $user->id != $forumMessage->user_id) {
+            return $this->error(__('forum.user'));
+        }
+    
+        if (count($forumMessage['replies']) == 0) {
+            $forumMessage->delete();
+        } else {
+            return $this->error(__('forum.delete-message-error'));
+        }
+    
+        return $this->success([
+            'message' => __('success.delete'),
         ]);
     }
 }

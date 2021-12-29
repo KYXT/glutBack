@@ -190,6 +190,8 @@ class ForumTopicController extends Controller
         if ($user->isUser()) {
             if ($forumTopic->messages_count == 0) {
                 $forumTopic->delete();
+            } else {
+                return $this->error(__('forum.delete-topic-error'));
             }
         } else {
             $forumTopic->messages()->delete();
