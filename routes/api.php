@@ -70,10 +70,10 @@ $router->version('v1', function ($route) {
                                 'prefix' => 'forum-topics',
                             ],
                             function ($route) {
-                                $route->post('store',           'ForumTopicController@store');
-                                $route->post('update/{slug}',   'ForumTopicController@update');
-                                $route->post('close/{slug}',    'ForumTopicController@close');
-                                $route->post('delete/{slug}',   'ForumTopicController@delete');
+                                $route->post('store/{categoryId}', 'ForumTopicController@store');
+                                $route->post('update/{id}',        'ForumTopicController@update');
+                                $route->post('close/{id}',         'ForumTopicController@close');
+                                $route->post('delete/{id}',        'ForumTopicController@delete');
                             }
                         );
                     }

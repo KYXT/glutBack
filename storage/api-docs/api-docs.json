@@ -1693,7 +1693,7 @@
                 }
             }
         },
-        "/user/forum-topics/store": {
+        "/user/forum-topics/store/{categoryId}": {
             "post": {
                 "tags": [
                     "User-Forum-topics"
@@ -1701,6 +1701,73 @@
                 "summary": "Create forum topic",
                 "description": "Store posts category",
                 "operationId": "store-forum-topic",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "Forum's category Id",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        },
+                        "example": "123"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreForumTopicRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/forum-topics/update/{id}": {
+            "post": {
+                "tags": [
+                    "User-Forum-topics"
+                ],
+                "summary": "Update forum topic",
+                "description": "Store posts category",
+                "operationId": "update-forum-topic",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Forum's topic id",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        },
+                        "example": "123"
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -2260,17 +2327,10 @@
                 "title": "StoreForumTopicRequest",
                 "description": "Class StoreForumTopicRequest",
                 "required": [
-                    "category_id",
                     "title",
                     "text"
                 ],
                 "properties": {
-                    "category_id": {
-                        "title": "category_id",
-                        "description": "Forum category id",
-                        "type": "integer",
-                        "example": "1"
-                    },
                     "title": {
                         "title": "title",
                         "description": "Title of user's topic (question)",

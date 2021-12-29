@@ -24,7 +24,6 @@ class StoreForumTopicRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id' => 'required|exists:forum_categories,id',
             'title'       => 'required|string|min:10|max:255',
             'text'        => 'required|string|min:10|max:2000'
         ];

@@ -16,9 +16,9 @@ class ForumTopic extends Model
         'text',
     ];
     
-    protected $hidden = [
-        'created_at',
-        'updated_at',
+    protected $casts = [
+        'created_at' => 'date:Y-m-d H:i:s',
+        'updated_at' => 'date:Y-m-d H:i:s',
     ];
     
     public function user()
