@@ -4,18 +4,20 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\ForumCategory;
+use App\Models\ForumMessage;
+use App\Models\ForumTopic;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\App;
 
-class ForumCategoryController extends Controller
+class ForumController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @OA\Get(
-     *     path="/forum-categories",
+     *     path="/forum/categories",
      *     operationId="forum-categories",
-     *     tags={"Forum-categories"},
+     *     tags={"Forum-Categories"},
      *     summary="Get all forum categories",
      *     description="Return all forum categories with topics count, paginated by 12",
      *     @OA\Response(
@@ -27,7 +29,7 @@ class ForumCategoryController extends Controller
      *
      * @return JsonResponse
      */
-    public function index()
+    public function indexCategory()
     {
         $lang = App::getLocale();
     
@@ -47,9 +49,9 @@ class ForumCategoryController extends Controller
      * Display a listing of the resource.
      *
      * @OA\Get(
-     *     path="/forum-categories/{slug}",
+     *     path="/forum/categories/{slug}",
      *     operationId="show forum category",
-     *     tags={"Forum-categories"},
+     *     tags={"Forum-Categories"},
      *     summary="Get forum category by slug",
      *     description="Return forum category with topics",
      *     @OA\Parameter(
@@ -77,7 +79,7 @@ class ForumCategoryController extends Controller
      * @param $slug
      * @return JsonResponse
      */
-    public function show($slug)
+    public function showCategory($slug)
     {
         $lang = App::getLocale();
     
@@ -85,7 +87,7 @@ class ForumCategoryController extends Controller
             ['slug', $slug],
             ['lang', $lang]
         ])
-            ->with('topics')
+            ->with('topics.user')
             ->first();
     
         if (!$forumCategory) {
@@ -96,6 +98,66 @@ class ForumCategoryController extends Controller
     
         return $this->success([
             'forum-category'  => $forumCategory
+        ]);
+    }
+    
+    /**
+     * Show forum's topic with messages.
+     *
+     * @OA\Get(
+     *     path="/forum/topics/{id}",
+     *     operationId="show-forum-topic",
+     *     tags={"Forum-Topics"},
+     *     summary="Get forum topic by id",
+     *     description="Return forum topic with messages paginated by 12",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Forum topic's id",
+     *          required=true,
+     *          in="path",
+     *          example="1",
+     *          @OA\Schema(
+     *              type="int"
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(example="Forum topic with messages")
+     *      ),
+     *     @OA\Response(
+     *          response=500,
+     *          description="Item not founded",
+     *          @OA\JsonContent(example="Item not founded")
+     *      ),
+     * )
+     *
+     * @param $id
+     * @return JsonResponse
+     */
+    public function showTopic($id)
+    {
+        $forumTopic = ForumTopic::where('id', $id)
+            ->with('user:id,name,email,role')    
+            ->first();
+    
+        if (!$forumTopic) {
+            return $this->error([
+                __('errors.not-founded')
+            ]);
+        }
+        
+        $forumMessages = ForumMessage::where([
+            'reply_id' => null,
+            'topic_id' => $id
+        ])
+            ->with('replies', 'user:id,name,email,role')
+            ->orderBy('created_at')
+            ->paginate(12);
+    
+        return $this->success([
+            'forum-topic'       => $forumTopic,
+            'forum-messages'    => $forumMessages    
         ]);
     }
 }

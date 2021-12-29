@@ -19,7 +19,7 @@ class ForumTopicController extends Controller
      * @OA\Post(
      *     path="/user/forum-topics/store/{categoryId}",
      *     operationId="store-forum-topic",
-     *     tags={"User-Forum-topics"},
+     *     tags={"User-Forum-Topics"},
      *     summary="Create forum topic",
      *     security={
      *          {"bearer": {}}
@@ -84,7 +84,7 @@ class ForumTopicController extends Controller
      * @OA\Post(
      *     path="/user/forum-topics/update/{id}",
      *     operationId="update-forum-topic",
-     *     tags={"User-Forum-topics"},
+     *     tags={"User-Forum-Topics"},
      *     summary="Update forum topic",
      *     security={
      *          {"bearer": {}}
@@ -145,7 +145,7 @@ class ForumTopicController extends Controller
      * @OA\Post(
      *     path="/user/forum-topics/delete/{id}",
      *     operationId="delete-forum-topic",
-     *     tags={"User-Forum-topics"},
+     *     tags={"User-Forum-Topics"},
      *     summary="Delete forum topic",
      *     security={
      *          {"bearer": {}}
