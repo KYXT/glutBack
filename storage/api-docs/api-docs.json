@@ -1323,10 +1323,10 @@
                 }
             }
         },
-        "/forum-categories": {
+        "/forum/categories": {
             "get": {
                 "tags": [
-                    "Forum-categories"
+                    "Forum-Categories"
                 ],
                 "summary": "Get all forum categories",
                 "description": "Return all forum categories with topics count, paginated by 12",
@@ -1344,10 +1344,10 @@
                 }
             }
         },
-        "/forum-categories/{slug}": {
+        "/forum/categories/{slug}": {
             "get": {
                 "tags": [
-                    "Forum-categories"
+                    "Forum-Categories"
                 ],
                 "summary": "Get forum category by slug",
                 "description": "Return forum category with topics",
@@ -1371,6 +1371,48 @@
                             "application/json": {
                                 "schema": {},
                                 "example": "Forum category with topics"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Item not founded",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Item not founded"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/forum/topics/{id}": {
+            "get": {
+                "tags": [
+                    "Forum-Topics"
+                ],
+                "summary": "Get forum topic by id",
+                "description": "Return forum topic with messages paginated by 12",
+                "operationId": "show-forum-topic",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Forum topic's id",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Forum topic with messages"
                             }
                         }
                     },
@@ -1693,14 +1735,181 @@
                 }
             }
         },
-        "/user/forum-topics/store": {
+        "/user/forum-messages/store/{topicId}": {
             "post": {
                 "tags": [
-                    "User-Forum-topics"
+                    "User-Forum-Messages"
+                ],
+                "summary": "Create forum message",
+                "description": "Create forum message inside topic",
+                "operationId": "store-forum-message",
+                "parameters": [
+                    {
+                        "name": "topicId",
+                        "in": "path",
+                        "description": "Forum's topic Id",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        },
+                        "example": "123"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreForumMessageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/forum-messages/update/{id}": {
+            "post": {
+                "tags": [
+                    "User-Forum-Messages"
+                ],
+                "summary": "Update forum message",
+                "description": "Update forum message text by id",
+                "operationId": "update-forum-message",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Message Id",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        },
+                        "example": "123"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateForumMessageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/forum-messages/delete/{id}": {
+            "post": {
+                "tags": [
+                    "User-Forum-Messages"
+                ],
+                "summary": "Delete forum message",
+                "description": "Delete forum message by id",
+                "operationId": "delete-forum-message",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Message Id",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        },
+                        "example": "123"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/forum-topics/store/{categoryId}": {
+            "post": {
+                "tags": [
+                    "User-Forum-Topics"
                 ],
                 "summary": "Create forum topic",
-                "description": "Store posts category",
+                "description": "Store forum topic",
                 "operationId": "store-forum-topic",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "Forum's category Id",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        },
+                        "example": "123"
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1711,6 +1920,106 @@
                         }
                     }
                 },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/forum-topics/update/{id}": {
+            "post": {
+                "tags": [
+                    "User-Forum-Topics"
+                ],
+                "summary": "Update forum topic",
+                "description": "Update forum topic",
+                "operationId": "update-forum-topic",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Forum's topic id",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        },
+                        "example": "123"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateForumTopicRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/forum-topics/delete/{id}": {
+            "post": {
+                "tags": [
+                    "User-Forum-Topics"
+                ],
+                "summary": "Delete forum topic",
+                "description": "Update forum topic",
+                "operationId": "delete-forum-topic",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Forum's topic id",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        },
+                        "example": "123"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -2256,21 +2565,38 @@
                 },
                 "type": "object"
             },
+            "StoreForumMessageRequest": {
+                "title": "StoreForumMessageRequest",
+                "description": "Class StoreForumMessageRequest",
+                "required": [
+                    "text"
+                ],
+                "properties": {
+                    "text": {
+                        "title": "text",
+                        "description": "Text of user's message (question)",
+                        "type": "string",
+                        "maxLength": 2000,
+                        "minLength": 10,
+                        "example": "Tak, kupowałem ten lek wczesniej tydzień temu w aptece yyy"
+                    },
+                    "reply_id": {
+                        "title": "reply_id",
+                        "description": "Message id replied on",
+                        "type": "integer",
+                        "example": "2"
+                    }
+                },
+                "type": "object"
+            },
             "StoreForumTopicRequest": {
                 "title": "StoreForumTopicRequest",
                 "description": "Class StoreForumTopicRequest",
                 "required": [
-                    "category_id",
                     "title",
                     "text"
                 ],
                 "properties": {
-                    "category_id": {
-                        "title": "category_id",
-                        "description": "Forum category id",
-                        "type": "integer",
-                        "example": "1"
-                    },
                     "title": {
                         "title": "title",
                         "description": "Title of user's topic (question)",
@@ -2286,6 +2612,58 @@
                         "maxLength": 2000,
                         "minLength": 10,
                         "example": "Szukam pomocy, nie mogę znaleźć lek xxx, czy ktoś kiedyś go kupował?"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateForumMessageRequest": {
+                "title": "UpdateForumMessageRequest",
+                "description": "Class UpdateForumMessageRequest",
+                "required": [
+                    "text"
+                ],
+                "properties": {
+                    "text": {
+                        "title": "text",
+                        "description": "Text of user's message (question)",
+                        "type": "string",
+                        "maxLength": 2000,
+                        "minLength": 10,
+                        "example": "Tak, kupowałem ten lek wczesniej tydzień temu w aptece yyy"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateForumTopicRequest": {
+                "title": "UpdateForumTopicRequest",
+                "description": "Class UpdateForumTopicRequest",
+                "required": [
+                    "title",
+                    "text",
+                    "is_open"
+                ],
+                "properties": {
+                    "title": {
+                        "title": "title",
+                        "description": "Title of user's topic (question)",
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 10,
+                        "example": "Ktoś zna gdzie kupić leki?"
+                    },
+                    "text": {
+                        "title": "text",
+                        "description": "Text of user's topic (question)",
+                        "type": "string",
+                        "maxLength": 2000,
+                        "minLength": 10,
+                        "example": "Szukam pomocy, nie mogę znaleźć lek xxx, czy ktoś kiedyś go kupował?"
+                    },
+                    "is_open": {
+                        "title": "is_open",
+                        "description": "Open\\close topic for edit and add messages. Boolean",
+                        "type": "boolean",
+                        "example": "1"
                     }
                 },
                 "type": "object"

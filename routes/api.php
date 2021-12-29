@@ -20,10 +20,15 @@ $router->version('v1', function ($route) {
             });
     
             // Forum
-            $route->group(['prefix' => 'forum-categories'], function ($route) {
-                $route->get('',         'ForumCategoryController@index');
-                $route->get('{slug}',   'ForumCategoryController@show');
-            });
+            $route->group(['prefix' => 'forum'], function ($route) {
+                $route->group(['prefix' => 'categories'], function ($route) {
+                    $route->get('',         'ForumController@indexCategory');
+                    $route->get('{slug}',   'ForumController@showCategory');
+                });
+                $route->group(['prefix' => 'topics'], function ($route) {
+                    $route->get('{id}',         'ForumController@showTopic');
+                });
+            });            
 
             // Posts
             $route->group(['prefix' => 'posts'], function ($route) {
@@ -70,10 +75,21 @@ $router->version('v1', function ($route) {
                                 'prefix' => 'forum-topics',
                             ],
                             function ($route) {
-                                $route->post('store',           'ForumTopicController@store');
-                                $route->post('update/{slug}',   'ForumTopicController@update');
-                                $route->post('close/{slug}',    'ForumTopicController@close');
-                                $route->post('delete/{slug}',   'ForumTopicController@delete');
+                                $route->post('store/{categoryId}', 'ForumTopicController@store');
+                                $route->post('update/{id}',        'ForumTopicController@update');
+                                $route->post('delete/{id}',        'ForumTopicController@delete');
+                            }
+                        );
+                        
+                        //Forum messages
+                        $route->group(
+                            [
+                                'prefix' => 'forum-messages',
+                            ],
+                            function ($route) {
+                                $route->post('store/{topicId}',    'ForumMessageController@store');
+                                $route->post('update/{id}',        'ForumMessageController@update');
+                                $route->post('delete/{id}',        'ForumMessageController@delete');
                             }
                         );
                     }

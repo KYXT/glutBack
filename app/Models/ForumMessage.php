@@ -16,14 +16,14 @@ class ForumMessage extends Model
         'text',
     ];
     
-    protected $hidden = [
-        'created_at',
-        'updated_at',
+    protected $casts = [
+        'created_at' => 'date:Y-m-d H:i:s',
+        'updated_at' => 'date:Y-m-d H:i:s',
     ];
     
     public function topic()
     {
-        return $this->belongsTo(ForumTopic::class, 'id');        
+        return $this->belongsTo(ForumTopic::class, 'topic_id');        
     }
     
     public function user()
@@ -33,6 +33,11 @@ class ForumMessage extends Model
     
     public function reply()
     {
-        return $this->belongsTo(ForumMessage::class, 'id');
+        return $this->hasMany(ForumMessage::class, 'reply_id', 'id');
+    }
+    
+    public function replies()
+    {
+        return $this->reply()->with('replies', 'user:id,name,email,role');
     }
 }

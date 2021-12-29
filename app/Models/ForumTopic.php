@@ -14,11 +14,12 @@ class ForumTopic extends Model
         'user_id',
         'title',
         'text',
+        'is_open'
     ];
     
-    protected $hidden = [
-        'created_at',
-        'updated_at',
+    protected $casts = [
+        'created_at' => 'date:Y-m-d H:i:s',
+        'updated_at' => 'date:Y-m-d H:i:s',
     ];
     
     public function user()
@@ -28,7 +29,7 @@ class ForumTopic extends Model
     
     public function category()
     {
-        return $this->belongsTo(ForumCategory::class, 'id');
+        return $this->belongsTo(ForumCategory::class, 'category_id');
     }
     
     public function messages()

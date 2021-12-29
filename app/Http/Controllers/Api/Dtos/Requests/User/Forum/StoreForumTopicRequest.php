@@ -1,32 +1,21 @@
 <?php
 
 
-namespace App\Http\Controllers\Api\Dtos\Requests\User;
+namespace App\Http\Controllers\Api\Dtos\Requests\User\Forum;
 
 /**
  * Class StoreForumTopicRequest
  *
- * @package App\Http\Controllers\Api\Dtos\Requests\User\StoreForumTopicRequest
+ * @package App\Http\Controllers\Api\Dtos\Requests\User\Forum\StoreForumTopicRequest
  *
  * @OA\Schema(
  *      title="StoreForumTopicRequest",
  *      type="object",
- *      required={"category_id", "title", "text"}
+ *      required={"title", "text"}
  * )
  */
 class StoreForumTopicRequest
-{
-    /**
-     * @OA\Property(
-     *      title="category_id",
-     *      description="Forum category id",
-     *      example="1"
-     * )
-     *
-     * @var int
-     */
-    public int $category_id;
-    
+{   
     /**
      * @OA\Property(
      *      title="title",

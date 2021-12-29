@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\User\ForumTopics;
+namespace App\Http\Requests\Api\User\ForumMessages;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreForumTopicRequest extends FormRequest
+class StoreForumMessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class StoreForumTopicRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'       => 'required|string|min:10|max:255',
-            'text'        => 'required|string|min:10|max:2000'
+            'text'      => 'required|string|min:10|max:2000',
+            'reply_id'  => 'nullable|integer|exists:forum_messages,id',
         ];
     }
 }

@@ -3,30 +3,30 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\User\ForumTopics\StoreForumTopicRequest;
-use App\Http\Requests\Api\User\ForumTopics\UpdateForumTopicRequest;
-use App\Models\ForumCategory;
+use App\Http\Requests\Api\User\ForumMessages\StoreForumMessageRequest;
+use App\Http\Requests\Api\User\ForumMessages\UpdateForumMessageRequest;
+use App\Models\ForumMessage;
 use App\Models\ForumTopic;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
-class ForumTopicController extends Controller
+class ForumMessageController extends Controller
 {
     /**
-     * Store forum topic
+     * Store forum message
      *
      * @OA\Post(
-     *     path="/user/forum-topics/store/{categoryId}",
-     *     operationId="store-forum-topic",
-     *     tags={"User-Forum-Topics"},
-     *     summary="Create forum topic",
+     *     path="/user/forum-messages/store/{topicId}",
+     *     operationId="store-forum-message",
+     *     tags={"User-Forum-Messages"},
+     *     summary="Create forum message",
+     *     description="Create forum message inside topic",
      *     security={
      *          {"bearer": {}}
      *     },
      *     @OA\Parameter(
-     *          name="categoryId",
-     *          description="Forum's category Id",
+     *          name="topicId",
+     *          description="Forum's topic Id",
      *          required=true,
      *          in="path",
      *          example="123",
@@ -36,7 +36,7 @@ class ForumTopicController extends Controller
      *     ),
      *     @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/StoreForumTopicRequest")
+     *          @OA\JsonContent(ref="#/components/schemas/StoreForumMessageRequest")
      *      ),
      *     @OA\Response(
      *          response=200,
@@ -47,112 +47,64 @@ class ForumTopicController extends Controller
      *      )
      * )
      *
-     * @param StoreForumTopicRequest $request
-     * @param $categoryId
+     * @param StoreForumMessageRequest $request
+     * @param $topicId
      * @return JsonResponse
      */
-    public function store(StoreForumTopicRequest $request, $categoryId)
+    public function store(StoreForumMessageRequest $request, $topicId)
     {
-        $forumCategory = ForumCategory::where('id', $categoryId)
-            ->first();
-    
-        if (!$forumCategory) {
-            return $this->error(__('errors.not-founded'));
-        }
-        
-        $data = $request->validated();
-        $lang = App::getLocale();
-    
-        if ($lang != $forumCategory['lang']) {
-            return $this->error(__('forum.topic-category-lang'));
-        }
-        
-        $data['user_id'] = Auth::id();
-        $data['category_id'] = $categoryId;
-
-        $forumTopic = ForumTopic::create($data);
-        $forumTopic->load('category');
-    
-        return $this->success([
-            'forumTopic' =>  $forumTopic
-        ]);
-    }
-    
-    /**
-     * Update forum topic
-     *
-     * @OA\Post(
-     *     path="/user/forum-topics/update/{id}",
-     *     operationId="update-forum-topic",
-     *     tags={"User-Forum-Topics"},
-     *     summary="Update forum topic",
-     *     security={
-     *          {"bearer": {}}
-     *     },
-     *     @OA\Parameter(
-     *          name="id",
-     *          description="Forum's topic id",
-     *          required=true,
-     *          in="path",
-     *          example="123",
-     *          @OA\Schema(
-     *              type="int"
-     *          )
-     *     ),
-     *     @OA\RequestBody(
-     *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/UpdateForumTopicRequest")
-     *      ),
-     *     @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="message", type="string", example="Successfully created")
-     *          )
-     *      )
-     * )
-     *
-     * @param UpdateForumTopicRequest $request
-     * @param $id
-     * @return JsonResponse
-     */
-    public function update(UpdateForumTopicRequest $request, $id)
-    {
-        $forumTopic = ForumTopic::where('id', $id)
-            ->with('category')
+        $forumTopic = ForumTopic::where('id', $topicId)
             ->first();
     
         if (!$forumTopic) {
             return $this->error(__('errors.not-founded'));
         }
         
-        $user = Auth::user();
-        if (!$user->isAdmin() && !$user->isCreator() && !$user->isModerator() && $user->id != $forumTopic->user_id) {
-            return $this->error(__('forum.user'));
-        }        
+        if (!$forumTopic['is_open']) {
+            return $this->error(__('forum.closed-topic'));
+        }
         
         $data = $request->validated();
-        $forumTopic->update($data);
+        
+        if (isset($data['reply_id'])) {
+            $repliedMessage = ForumMessage::where('id', $data['reply_id'])
+                ->first();
+    
+            if (!$repliedMessage) {
+                return $this->error(__('errors.not-founded'));
+            }
+            
+            if ($repliedMessage['topic_id'] != $topicId) {
+                return $this->error(__('forum.reply-error'));
+            }
+        }
+        
+        $data['user_id'] = Auth::id();
+        $data['topic_id'] = $topicId;
+        
+        $forumMessage = ForumMessage::create($data);
+        $forumMessage->load('user');
     
         return $this->success([
-            'forumTopic' =>  $forumTopic
+            'forumMessage' =>  $forumMessage
         ]);
     }
     
     /**
-     * Update forum topic
+     * Update forum message
      *
      * @OA\Post(
-     *     path="/user/forum-topics/delete/{id}",
-     *     operationId="delete-forum-topic",
-     *     tags={"User-Forum-Topics"},
-     *     summary="Delete forum topic",
+     *     path="/user/forum-messages/update/{id}",
+     *     operationId="update-forum-message",
+     *     tags={"User-Forum-Messages"},
+     *     summary="Update forum message",
+     *     description="Update forum message text by id",
      *     security={
      *          {"bearer": {}}
      *     },
      *     @OA\Parameter(
      *          name="id",
-     *          description="Forum's topic id",
+     *          description="Message Id",
      *          required=true,
      *          in="path",
      *          example="123",
@@ -160,6 +112,67 @@ class ForumTopicController extends Controller
      *              type="int"
      *          )
      *     ),
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/UpdateForumMessageRequest")
+     *      ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Successfully created")
+     *          )
+     *      )
+     * )
+     *
+     * @param UpdateForumMessageRequest $request
+     * @param $id
+     * @return JsonResponse
+     */
+    public function update(UpdateForumMessageRequest $request, $id)
+    {
+        $forumMessage = ForumMessage::where('id', $id)
+            ->first();
+    
+        if (!$forumMessage) {
+            return $this->error(__('errors.not-founded'));
+        }
+    
+        $user = Auth::user();
+        if (!$user->isAdmin() && !$user->isCreator() && !$user->isModerator() && $user->id != $forumMessage->user_id) {
+            return $this->error(__('forum.user'));
+        }
+        
+        $data = $request->validated();
+        $forumMessage->update($data);
+        
+        return $this->success([
+            'forumMessage' =>  $forumMessage
+        ]);
+    }
+    
+    /**
+     * Delete forum message
+     *
+     * @OA\Post(
+     *     path="/user/forum-messages/delete/{id}",
+     *     operationId="delete-forum-message",
+     *     tags={"User-Forum-Messages"},
+     *     summary="Delete forum message",
+     *     description="Delete forum message by id",
+     *     security={
+     *          {"bearer": {}}
+     *     },
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Message Id",
+     *          required=true,
+     *          in="path",
+     *          example="123",
+     *          @OA\Schema(
+     *              type="int"
+     *          )
+     *     ),     
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -174,28 +187,23 @@ class ForumTopicController extends Controller
      */
     public function delete($id)
     {
-        $forumTopic = ForumTopic::where('id', $id)
-            ->withCount('messages')
+        $forumMessage = ForumMessage::where('id', $id)
+            ->with('replies')
             ->first();
-    
-        if (!$forumTopic) {
+        
+        if (!$forumMessage) {
             return $this->error(__('errors.not-founded'));
         }
     
         $user = Auth::user();
-        if (!$user->isAdmin() && !$user->isCreator() && !$user->isModerator() && $user->id != $forumTopic->user_id) {
+        if (!$user->isAdmin() && !$user->isCreator() && !$user->isModerator() && $user->id != $forumMessage->user_id) {
             return $this->error(__('forum.user'));
         }
-        
-        if ($user->isUser()) {
-            if ($forumTopic->messages_count == 0) {
-                $forumTopic->delete();
-            } else {
-                return $this->error(__('forum.delete-topic-error'));
-            }
+    
+        if (count($forumMessage['replies']) == 0) {
+            $forumMessage->delete();
         } else {
-            $forumTopic->messages()->delete();
-            $forumTopic->delete();
+            return $this->error(__('forum.delete-message-error'));
         }
     
         return $this->success([
