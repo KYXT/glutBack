@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Http\Controllers\Api\Dtos\Requests\User;
+namespace App\Http\Controllers\Api\Dtos\Requests\User\Forum;
 
 /**
  * Class StoreForumTopicRequest
  *
- * @package App\Http\Controllers\Api\Dtos\Requests\User\StoreForumTopicRequest
+ * @package App\Http\Controllers\Api\Dtos\Requests\User\Forum\StoreForumTopicRequest
  *
  * @OA\Schema(
  *      title="StoreForumTopicRequest",

@@ -72,7 +72,6 @@ $router->version('v1', function ($route) {
                             function ($route) {
                                 $route->post('store/{categoryId}', 'ForumTopicController@store');
                                 $route->post('update/{id}',        'ForumTopicController@update');
-                                $route->post('close/{id}',         'ForumTopicController@close');
                                 $route->post('delete/{id}',        'ForumTopicController@delete');
                             }
                         );

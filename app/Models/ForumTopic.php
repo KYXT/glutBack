@@ -14,6 +14,7 @@ class ForumTopic extends Model
         'user_id',
         'title',
         'text',
+        'is_open'
     ];
     
     protected $casts = [
@@ -28,7 +29,7 @@ class ForumTopic extends Model
     
     public function category()
     {
-        return $this->belongsTo(ForumCategory::class, 'id');
+        return $this->belongsTo(ForumCategory::class, 'category_id');
     }
     
     public function messages()

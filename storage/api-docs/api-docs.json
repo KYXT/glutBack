@@ -1699,7 +1699,7 @@
                     "User-Forum-topics"
                 ],
                 "summary": "Create forum topic",
-                "description": "Store posts category",
+                "description": "Store forum topic",
                 "operationId": "store-forum-topic",
                 "parameters": [
                     {
@@ -1754,7 +1754,7 @@
                     "User-Forum-topics"
                 ],
                 "summary": "Update forum topic",
-                "description": "Store posts category",
+                "description": "Update forum topic",
                 "operationId": "update-forum-topic",
                 "parameters": [
                     {
@@ -1773,11 +1773,56 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/StoreForumTopicRequest"
+                                "$ref": "#/components/schemas/UpdateForumTopicRequest"
                             }
                         }
                     }
                 },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/forum-topics/delete/{id}": {
+            "post": {
+                "tags": [
+                    "User-Forum-topics"
+                ],
+                "summary": "Delete forum topic",
+                "description": "Update forum topic",
+                "operationId": "delete-forum-topic",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Forum's topic id",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        },
+                        "example": "123"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -2346,6 +2391,40 @@
                         "maxLength": 2000,
                         "minLength": 10,
                         "example": "Szukam pomocy, nie mogę znaleźć lek xxx, czy ktoś kiedyś go kupował?"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateForumTopicRequest": {
+                "title": "UpdateForumTopicRequest",
+                "description": "Class UpdateForumTopicRequest",
+                "required": [
+                    "title",
+                    "text",
+                    "is_open"
+                ],
+                "properties": {
+                    "title": {
+                        "title": "title",
+                        "description": "Title of user's topic (question)",
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 10,
+                        "example": "Ktoś zna gdzie kupić leki?"
+                    },
+                    "text": {
+                        "title": "text",
+                        "description": "Text of user's topic (question)",
+                        "type": "string",
+                        "maxLength": 2000,
+                        "minLength": 10,
+                        "example": "Szukam pomocy, nie mogę znaleźć lek xxx, czy ktoś kiedyś go kupował?"
+                    },
+                    "is_open": {
+                        "title": "is_open",
+                        "description": "Open\\close topic for edit and add messages. Boolean",
+                        "type": "boolean",
+                        "example": "1"
                     }
                 },
                 "type": "object"
