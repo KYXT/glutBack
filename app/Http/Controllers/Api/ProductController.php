@@ -65,7 +65,7 @@ class ProductController extends Controller
 
         $products = Product::orderBy('name')
             ->where('lang', $lang)
-            ->with('images');
+            ->with('images', 'subcategory.category');
 
         if ($categorySlug) {
             $products = $products->whereHas('subcategory.category', function ($q) use ($categorySlug) {
@@ -129,7 +129,7 @@ class ProductController extends Controller
     public function show($slug)
     {
         $product = Product::where('slug', $slug)
-            ->with('subcategory.category', 'images')
+            ->with('subcategory.category', 'images', 'map')
             ->first();
 
         if (!$product) {
