@@ -2158,6 +2158,22 @@
                 },
                 "type": "object"
             },
+            "StorePostCategoryRequest": {
+                "title": "StorePostCategoryRequest",
+                "description": "Class StorePostCategoryRequest",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of posts category",
+                        "type": "string",
+                        "example": "Aktualności"
+                    }
+                },
+                "type": "object"
+            },
             "StorePostRequest": {
                 "title": "StorePostRequest",
                 "description": "Class StorePostRequest",
@@ -2316,84 +2332,6 @@
                 },
                 "type": "object"
             },
-            "StorePostCategoryRequest": {
-                "title": "StorePostCategoryRequest",
-                "description": "Class StorePostCategoryRequest",
-                "required": [
-                    "name"
-                ],
-                "properties": {
-                    "name": {
-                        "title": "name",
-                        "description": "Name of posts category",
-                        "type": "string",
-                        "example": "Aktualności"
-                    }
-                },
-                "type": "object"
-            },
-            "StoreProductRequest": {
-                "title": "StorePostRequest",
-                "description": "Class StorePostRequest",
-                "required": [
-                    "subcategory_id",
-                    "map_id",
-                    "lang",
-                    "name",
-                    "images"
-                ],
-                "properties": {
-                    "subcategory_id": {
-                        "title": "subcategory_id",
-                        "description": "Products subcategory ID",
-                        "type": "integer",
-                        "example": "1"
-                    },
-                    "map_id": {
-                        "title": "map_id",
-                        "description": "Products map ID",
-                        "type": "integer",
-                        "example": "1"
-                    },
-                    "lang": {
-                        "title": "lang",
-                        "description": "language of post",
-                        "type": "string",
-                        "example": "pl"
-                    },
-                    "name": {
-                        "title": "name",
-                        "description": "name",
-                        "type": "string",
-                        "maxLength": 255,
-                        "minLength": 1,
-                        "example": "Chleb"
-                    },
-                    "description": {
-                        "title": "description",
-                        "description": "product description",
-                        "type": "string",
-                        "maxLength": 10000,
-                        "minLength": 1,
-                        "example": "Вкусный хлеб"
-                    },
-                    "maker": {
-                        "title": "maker",
-                        "description": "product maker",
-                        "type": "string",
-                        "maxLength": 255,
-                        "minLength": 1,
-                        "example": "Гродненский хлебозавод"
-                    },
-                    "images": {
-                        "title": "images",
-                        "description": "array of images",
-                        "type": "string",
-                        "example": "['image' => image, 'is_main' => 1]"
-                    }
-                },
-                "type": "object"
-            },
             "StoreProductCategoryRequest": {
                 "title": "StoreProductCategoryRequest",
                 "description": "Class StoreProductCategoryRequest",
@@ -2488,6 +2426,68 @@
                         "maxLength": 180,
                         "minLength": 2,
                         "example": "Jogurt"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreProductRequest": {
+                "title": "StorePostRequest",
+                "description": "Class StorePostRequest",
+                "required": [
+                    "subcategory_id",
+                    "map_id",
+                    "lang",
+                    "name",
+                    "images"
+                ],
+                "properties": {
+                    "subcategory_id": {
+                        "title": "subcategory_id",
+                        "description": "Products subcategory ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "map_id": {
+                        "title": "map_id",
+                        "description": "Products map ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "lang": {
+                        "title": "lang",
+                        "description": "language of post",
+                        "type": "string",
+                        "example": "pl"
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name",
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 1,
+                        "example": "Chleb"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "product description",
+                        "type": "string",
+                        "maxLength": 10000,
+                        "minLength": 1,
+                        "example": "Вкусный хлеб"
+                    },
+                    "maker": {
+                        "title": "maker",
+                        "description": "product maker",
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 1,
+                        "example": "Гродненский хлебозавод"
+                    },
+                    "images": {
+                        "title": "images",
+                        "description": "array of images",
+                        "type": "string",
+                        "example": "['image' => image, 'is_main' => 1]"
                     }
                 },
                 "type": "object"

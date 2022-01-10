@@ -127,7 +127,6 @@ class ForumController extends Controller
      *      )
      * )
      *
-     * @param $id
      * @return JsonResponse
      */
     public function indexTopic()
@@ -135,14 +134,14 @@ class ForumController extends Controller
         $lang = App::getLocale();
         
         $forumTopics = ForumTopic::orderBy('created_at', 'desc')
-            ->with(['category' => function ($q) use ($lang) {
+            ->with(['user', 'category' => function ($q) use ($lang) {
                 $q->where('lang', $lang);
             }])
             ->withCount('messages')
             ->paginate(12);
     
         return $this->success([
-            'forum-topics'  => $forumTopics
+            'forumTopics'  => $forumTopics
         ]);
     }
     
