@@ -1386,6 +1386,39 @@
                 }
             }
         },
+        "/forum/topics": {
+            "get": {
+                "tags": [
+                    "Forum-Topics"
+                ],
+                "summary": "Get forum topics",
+                "description": "Return forum topic with messages count paginated by 12",
+                "operationId": "index-forum-topic",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Forum topic's id",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": "Forum topics"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/forum/topics/{id}": {
             "get": {
                 "tags": [

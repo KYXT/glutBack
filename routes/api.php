@@ -26,6 +26,7 @@ $router->version('v1', function ($route) {
                     $route->get('{slug}',   'ForumController@showCategory');
                 });
                 $route->group(['prefix' => 'topics'], function ($route) {
+                    $route->get('',             'ForumController@indexTopic');
                     $route->get('{id}',         'ForumController@showTopic');
                 });
             });            

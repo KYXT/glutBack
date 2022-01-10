@@ -105,6 +105,51 @@ class ForumController extends Controller
      * Show forum's topic with messages.
      *
      * @OA\Get(
+     *     path="/forum/topics",
+     *     operationId="index-forum-topic",
+     *     tags={"Forum-Topics"},
+     *     summary="Get forum topics",
+     *     description="Return forum topic with messages count paginated by 12",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Forum topic's id",
+     *          required=true,
+     *          in="path",
+     *          example="1",
+     *          @OA\Schema(
+     *              type="int"
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(example="Forum topics")
+     *      )
+     * )
+     *
+     * @param $id
+     * @return JsonResponse
+     */
+    public function indexTopic()
+    {
+        $lang = App::getLocale();
+        
+        $forumTopics = ForumTopic::orderBy('created_at', 'desc')
+            ->with(['category' => function ($q) use ($lang) {
+                $q->where('lang', $lang);
+            }])
+            ->withCount('messages')
+            ->paginate(12);
+    
+        return $this->success([
+            'forum-topics'  => $forumTopics
+        ]);
+    }
+    
+    /**
+     * Show forum's topic with messages.
+     *
+     * @OA\Get(
      *     path="/forum/topics/{id}",
      *     operationId="show-forum-topic",
      *     tags={"Forum-Topics"},
