@@ -194,7 +194,7 @@ class ForumController extends Controller
         $forumMessages = ForumMessage::where([
             'topic_id' => $id
         ])
-            ->with('user:id,name,email,role')
+            ->with('replies', 'user:id,name,email,role')
             ->orderBy('created_at')
             ->paginate(12);
     
