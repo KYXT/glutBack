@@ -182,7 +182,7 @@ class ForumController extends Controller
     public function showTopic($id)
     {
         $forumTopic = ForumTopic::where('id', $id)
-            ->with('user:id,name,email,role')    
+            ->with('user:id,name,email,role', 'category')    
             ->first();
     
         if (!$forumTopic) {
@@ -192,10 +192,9 @@ class ForumController extends Controller
         }
         
         $forumMessages = ForumMessage::where([
-            'reply_id' => null,
             'topic_id' => $id
         ])
-            ->with('replies', 'user:id,name,email,role')
+            ->with('user:id,name,email,role')
             ->orderBy('created_at')
             ->paginate(12);
     
