@@ -40,4 +40,9 @@ class ForumMessage extends Model
     {
         return $this->reply()->with('replies', 'user:id,name,email,role');
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(ForumMessage::class, 'reply_id');
+    }
 }
